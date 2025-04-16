@@ -18,6 +18,7 @@ namespace Tenant_Management_System
     /// Interaction logic for LoginPage.xaml
     /// </summary>
     /// this is code
+    /// ok
     public partial class LoginPage : Window
     {
         public LoginPage()
