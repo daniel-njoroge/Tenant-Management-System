@@ -6,7 +6,78 @@
         xmlns:local="clr-namespace:Tenant_Management_System"
         mc:Ignorable="d"
         Title="LoginPage" Height="450" Width="800">
-    <Grid>
-        
+    <Grid x:Name="login">
+        <Border Width="320"
+            Padding="25"
+            Background="White"
+            CornerRadius="15"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Effect="{DynamicResource DropShadow}" Height="369">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                <!-- Login Title -->
+                <TextBlock Text="Login"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Foreground="#FF984040"
+                    HorizontalAlignment="Center"
+                    Margin="0,0,0,20"/>
+
+                <!-- Username -->
+                <TextBlock Text="Username" FontWeight="SemiBold" Margin="0,0,0,5" Foreground="#333"/>
+                <TextBox x:Name="usernameTbx"
+                    Height="40"
+                    Background="#f5f5f5"
+                    BorderBrush="#ccc"
+                    BorderThickness="1"
+                    Padding="10,0"
+                    FontSize="14"
+                    Margin="0,0,0,15"
+                    VerticalContentAlignment="Center"/>
+
+                <!-- Password -->
+                <TextBlock Text="Password" FontWeight="SemiBold" Margin="0,0,0,5" Foreground="#333"/>
+                <PasswordBox x:Name="passwordTbx"
+                    Height="40"
+                    Background="#f5f5f5"
+                    BorderBrush="#ccc"
+                    BorderThickness="1"
+                    Padding="10,0"
+                    FontSize="14"
+                    Margin="0,0,0,25"
+                    VerticalContentAlignment="Center"/>
+
+                <TextBlock x:Name="loginerrorLbl" Text="Error" FontWeight="SemiBold" Margin="0,0,0,5" Foreground="#FFC01616" HorizontalAlignment="Center"/>
+
+
+                <!-- Login Button -->
+                <Button x:Name="loginBtn"
+                    Content="Login"
+                    Height="40"
+                    Background="#FF984040"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Click="loginBtn_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="10"
+                                SnapsToDevicePixels="True">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <TextBlock x:Name="registerLinkTxt" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,10,0,0" Foreground="#0078d4" FontWeight="SemiBold" FontSize="14" Cursor="Hand" MouseDown="registerLinkTxt_Click"><Run Text="Don't have an account? Register now!"/></TextBlock>
+            </StackPanel>
+
+        </Border>
+        <Grid.Resources>
+            <DropShadowEffect x:Key="DropShadow" BlurRadius="10" ShadowDepth="4" Direction="270" Color="#888888" Opacity="0.4"/>
+        </Grid.Resources>
+
     </Grid>
 </Window>
