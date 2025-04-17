@@ -57,20 +57,20 @@
         <!-- Main content panels -->
         <Grid Grid.Column="1" x:Name="ContentPanel" Margin="20">
             <Grid x:Name="apartmentsPnl" Visibility="Collapsed">
-                <TextBlock Text="Apartments Page" FontSize="24" FontWeight="Bold" Margin="193,171,193,188"/>
+                <TextBlock Text="Apartments Panel" FontSize="24" FontWeight="Bold" Margin="193,171,193,188"/>
             </Grid>
             <Grid x:Name="tenantsPnl" Visibility="Collapsed">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="195*"/>
                     <RowDefinition Height="199*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Tenants Page" FontSize="24" FontWeight="Bold" Margin="0,178,0,0" Height="38" VerticalAlignment="Top" HorizontalAlignment="Center" Width="152" Grid.RowSpan="2"/>
+                <TextBlock Text="Tenants Panel" FontSize="24" FontWeight="Bold" Margin="0,178,0,0" Height="38" VerticalAlignment="Top" HorizontalAlignment="Center" Width="152" Grid.RowSpan="2"/>
             </Grid>
             <Grid x:Name="roomsPnl" Visibility="Collapsed" Height="394" VerticalAlignment="Center" HorizontalAlignment="Left" Width="580">
-                <TextBlock Text="Rooms Page" FontSize="24" FontWeight="Bold" Margin="216,171,216,181"/>
+                <TextBlock Text="Rooms Panel" FontSize="24" FontWeight="Bold" Margin="216,171,216,181"/>
             </Grid>
             <Grid x:Name="settingsPnl" Visibility="visible">
-                <TextBlock Text="Settings Page" FontSize="24" FontWeight="Bold" Margin="213,0,0,0" Height="32" VerticalAlignment="Center" HorizontalAlignment="Left" Width="154"/>
+                <TextBlock Text="Settings Panel" FontSize="24" FontWeight="Bold" Margin="213,0,0,0" Height="32" VerticalAlignment="Center" HorizontalAlignment="Left" Width="167"/>
             </Grid>
         </Grid>
     </Grid>
