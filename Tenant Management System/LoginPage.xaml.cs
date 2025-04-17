@@ -28,7 +28,7 @@ namespace Tenant_Management_System
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
         private void registerLinkTxt_Click(object sender, RoutedEventArgs e)
         {
