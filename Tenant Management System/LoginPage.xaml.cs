@@ -28,10 +28,23 @@ namespace Tenant_Management_System
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+            if(string.IsNullOrEmpty(emailTbx.Text) || string.IsNullOrEmpty(passwordTbx.Password))
+            {
+                loginerrorLbl.Text = "Email and password cannot be empty.";
+                return;
+            }
+            if (passwordTbx.Password.Length < 6)
+            {
+                loginerrorLbl.Text = "Password must be at least 6 characters long.";
+                return;
+            }
         }
         private void registerLinkTxt_Click(object sender, RoutedEventArgs e)
         {
+            
+            RegisterPage registerPage = new RegisterPage();
+            registerPage.Show();
+            this.Close();
 
         }
     }
