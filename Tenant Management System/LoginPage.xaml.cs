@@ -25,5 +25,14 @@ namespace Tenant_Management_System
         {
             InitializeComponent();
         }
+
+        private void loginBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void registerLinkTxt_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

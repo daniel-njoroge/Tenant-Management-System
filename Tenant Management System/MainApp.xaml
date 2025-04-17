@@ -5,8 +5,73 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tenant_Management_System"
         mc:Ignorable="d"
-        Title="MainApp" Height="450" Width="800">
+        Title="MainApp" Height="450" Width="800" Background="#FFF5F5F5">
+
+    <Window.Resources>
+        <!-- Drop shadow effect -->
+        <DropShadowEffect x:Key="DropShadow" BlurRadius="10" ShadowDepth="4" Direction="270" Color="#888888" Opacity="0.4"/>
+
+        <!-- Sidebar button style -->
+        <Style x:Key="SidebarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FF984040"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="10,10,10,0"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFBA5F5F"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar inside a border for padding and shadow -->
+        <Border Background="White" Grid.Column="0" Margin="5" CornerRadius="10" Effect="{StaticResource DropShadow}">
+            <StackPanel>
+                <TextBlock x:Name="dashboardLbl" Text="Dashboard" FontSize="18" FontWeight="Bold" Foreground="#FF984040" Margin="10,20,10,20"/>
+                <Button x:Name="apartmentsBtn" Content="Apartments" Style="{StaticResource SidebarButtonStyle}" Click="apartmentsBtn_Click"/>
+                <Button x:Name="tenantsBtn" Content="Tenants" Style="{StaticResource SidebarButtonStyle}" Click="tenantsBtn_Click"/>
+                <Button x:Name="roomsBtn" Content="Rooms" Style="{StaticResource SidebarButtonStyle}" Click="roomsBtn_Click"/>
+                <Button x:Name="settingsBtn" Content="Settings" Style="{StaticResource SidebarButtonStyle}" Click="settingsBtn_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Main content panels -->
+        <Grid Grid.Column="1" x:Name="ContentPanel" Margin="20">
+            <Grid x:Name="apartmentsPnl" Visibility="Collapsed">
+                <TextBlock Text="Apartments Panel" FontSize="24" FontWeight="Bold" Margin="193,171,193,188"/>
+            </Grid>
+            <Grid x:Name="tenantsPnl" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="195*"/>
+                    <RowDefinition Height="199*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Tenants Panel" FontSize="24" FontWeight="Bold" Margin="0,178,0,0" Height="38" VerticalAlignment="Top" HorizontalAlignment="Center" Width="152" Grid.RowSpan="2"/>
+            </Grid>
+            <Grid x:Name="roomsPnl" Visibility="Collapsed" Height="394" VerticalAlignment="Center" HorizontalAlignment="Left" Width="580">
+                <TextBlock Text="Rooms Panel" FontSize="24" FontWeight="Bold" Margin="216,171,216,181"/>
+            </Grid>
+            <Grid x:Name="settingsPnl" Visibility="visible">
+                <TextBlock Text="Settings Panel" FontSize="24" FontWeight="Bold" Margin="213,0,0,0" Height="32" VerticalAlignment="Center" HorizontalAlignment="Left" Width="167"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
