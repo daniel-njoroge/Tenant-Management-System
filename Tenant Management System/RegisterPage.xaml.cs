@@ -26,11 +26,23 @@ namespace Tenant_Management_System
 
         private void registerBtn_Click(object sender, RoutedEventArgs e)
         {
+            //inputs
+            //emailTbx - email input
+            //passwordTbx - password input
+            //confirmpasswordTbx - confirm password input
+            //registererrorLbl - error message label
 
+
+            //pass confirmed pass and emai cant be empty
+            //pass must be 6 characters long
+            //pass and confirm pass must match
+            //email must be valid
         }
 
         private void loginLinkTxt_Click(object sender, RoutedEventArgs e)
         {
+            //loginLinkTxt - login link
+            //when clicked, it should open the login page
 
         }
     }
