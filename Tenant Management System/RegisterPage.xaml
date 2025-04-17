@@ -6,14 +6,46 @@
         xmlns:local="clr-namespace:Tenant_Management_System"
         mc:Ignorable="d"
         Title="RegisterPage" Height="450" Width="800">
+
+    <Window.Resources>
+        <!-- Drop shadow -->
+        <DropShadowEffect x:Key="DropShadow" BlurRadius="10" ShadowDepth="4" Direction="270" Color="#888888" Opacity="0.4"/>
+
+        <!-- Reusable login button style with hover effect -->
+        <Style x:Key="registerButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Background" Value="#FF984040"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            CornerRadius="8"
+                            Padding="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFBA5F5F"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid x:Name="register">
         <Border Width="320"
             Padding="25"
             Background="White"
             CornerRadius="15"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Effect="{DynamicResource DropShadow}" Height="415" Margin="240,0,0,0">
+            Effect="{DynamicResource DropShadow}" Height="415">
             <StackPanel VerticalAlignment="Center" Height="371">
 
                 <TextBlock Text="Register"
@@ -64,23 +96,8 @@
 
                 <Button x:Name="registerBtn"
                     Content="Register"
-                    Height="40"
-                    Background="#FF984040"
-                    Foreground="White"
-                    FontWeight="Bold"
-                    BorderThickness="0"
-                    Cursor="Hand" Click="registerBtn_Click">
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}"
-                                CornerRadius="8"
-                                Padding="10"
-                                SnapsToDevicePixels="True">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                    Style="{StaticResource registerButtonStyle}"
+                    Click="registerBtn_Click"/> 
 
                 <!-- Link to login page -->
                 <TextBlock x:Name="loginLinkTxt" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,10,0,0" Foreground="#0078d4" FontWeight="SemiBold" FontSize="14" Cursor="Hand" MouseDown="loginLinkTxt_Click"><Run Text="Back to Login"/></TextBlock>
@@ -91,8 +108,8 @@
             <DropShadowEffect x:Key="DropShadow" BlurRadius="10" ShadowDepth="4" Direction="270" Color="#888888" Opacity="0.4"/>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="589*"/>
-            <ColumnDefinition Width="211*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
 
     </Grid>
