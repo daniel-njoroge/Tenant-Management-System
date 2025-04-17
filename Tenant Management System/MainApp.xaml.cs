@@ -23,5 +23,25 @@ namespace Tenant_Management_System
         {
             InitializeComponent();
         }
+
+        private void apartmentsBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void tenantsBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void roomsBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void settingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
