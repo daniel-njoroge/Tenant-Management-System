@@ -22,13 +22,14 @@ namespace Tenant_Management_System
     public partial class LoginPage : Window
     {
         public LoginPage()
-        {
+        {   
             InitializeComponent();
+            loginerrorLbl.Text = " ";
         }
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(string.IsNullOrEmpty(emailTbx.Text) || string.IsNullOrEmpty(passwordTbx.Password))
+            if (string.IsNullOrEmpty(emailTbx.Text) || string.IsNullOrEmpty(passwordTbx.Password))
             {
                 loginerrorLbl.Text = "Email and password cannot be empty.";
                 return;
@@ -36,7 +37,10 @@ namespace Tenant_Management_System
             if (passwordTbx.Password.Length < 6)
             {
                 loginerrorLbl.Text = "Password must be at least 6 characters long.";
-                return;
+            }
+            else
+            {
+                loginerrorLbl.Text = " ";
             }
         }
         private void registerLinkTxt_Click(object sender, RoutedEventArgs e)
