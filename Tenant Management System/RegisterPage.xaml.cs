@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,36 +23,63 @@ namespace Tenant_Management_System
         public RegisterPage()
         {
             InitializeComponent();
-            registererrorLbl.Text = " ";
+            statusLbl.Text = " ";
         }
 
         private void registerBtn_Click(object sender, RoutedEventArgs e)
         {
-           
-            if(string.IsNullOrEmpty(emailTbx.Text) || string.IsNullOrEmpty(passwordTbx.Password) || string.IsNullOrEmpty(nameTbx.Text))
+            var db = new MongoDBConnection();
+            string fullname = fullNameTbx.Text;
+            string email = emailTbx.Text;
+            string password = passwordTbx.Password;
+            string confirmPassword = confirmPasswordTbx.Password;
+
+
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(fullname))
             {
-                registererrorLbl.Text = "Email and password cannot be empty.";
+                statusLbl.Text = "Email and password cannot be empty.";
                 return;
             }
             if (passwordTbx.Password.Length < 6)
             {
-                registererrorLbl.Text = "Password must be at least 6 characters long.";
+                statusLbl.Text = "Password must be at least 6 characters long.";
                 return;
             }
             if (passwordTbx.Password != confirmPasswordTbx.Password)
             {
-                registererrorLbl.Text = "Password and confirm password must match.";
+                statusLbl.Text = "Password and confirm password must match.";
                 return;
+            }
+            if (!(emailTbx.Text.Contains("@") && emailTbx.Text.Contains(".")))
+            {
+                statusLbl.Text = "Email is not valid";
             }
             else
             {
-                registererrorLbl.Text = "Success ";
-                registererrorLbl.Foreground = Brushes.Green;
-            }
-            if(!(emailTbx.Text.Contains("@") && emailTbx.Text.Contains(".")))
-            {
-                registererrorLbl.Text = "Email is not valid";
-                registererrorLbl.Foreground = Brushes.Red;
+                var existingEmail = db.Users.Find(u => u.Email == email).FirstOrDefault();
+                if (existingEmail != null)
+                {
+                    statusLbl.Text = "Email Already Registered!";
+                    return;
+                }
+
+                var newUser = new User
+                {
+                    Fullname = fullname,
+                    Email = email,
+                    Password = password
+                };
+
+
+                db.Users.InsertOne(newUser);
+
+                statusLbl.Text = "Registration successful!";
+                statusLbl.Foreground = Brushes.Green;
+
+
+                fullname = "";
+                email = "";
+                password = "";
             }
 
         }

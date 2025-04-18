@@ -81,7 +81,7 @@
                              VerticalContentAlignment="Center"/>
 
                 <!-- Error message -->
-                <TextBlock x:Name="loginerrorLbl" Text="Error"
+                <TextBlock x:Name="statusLbl" Text="Error"
                            FontWeight="SemiBold"
                            Margin="0,0,0,5"
                            Foreground="#FFC01616"
