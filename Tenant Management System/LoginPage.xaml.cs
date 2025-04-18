@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,29 +23,46 @@ namespace Tenant_Management_System
         public LoginPage()
         {   
             InitializeComponent();
-            loginerrorLbl.Text = " ";
+            statusLbl.Text = " ";
         }
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
+            var db = new MongoDBConnection();
+            var enteredEmail = emailTbx.Text;
+            var enteredPassword = passwordTbx.Password;
+
+
             if (string.IsNullOrEmpty(emailTbx.Text) || string.IsNullOrEmpty(passwordTbx.Password))
             {
-                loginerrorLbl.Text = "Email and password cannot be empty.";
+                statusLbl.Text = "Email and password cannot be empty.";
                 return;
             }
             if (passwordTbx.Password.Length < 6)
             {
-                loginerrorLbl.Text = "Password must be at least 6 characters long.";
+                statusLbl.Text = "Password must be at least 6 characters long.";
             }
             if (!(emailTbx.Text.Contains("@") && emailTbx.Text.Contains(".")))
             {
-                loginerrorLbl.Text = "Email is not valid";
-                loginerrorLbl.Foreground = Brushes.Red;
+                statusLbl.Text = "Email is not valid";
+                statusLbl.Foreground = Brushes.Red;
             }
-            else
-            {
-                loginerrorLbl.Text = "Success";
-                loginerrorLbl.Foreground = Brushes.Green;
+
+            else{
+                var user = db.Users.Find(u => u.Email == enteredEmail && u.Password == enteredPassword).FirstOrDefault();
+
+                if (user != null)
+                {
+                    statusLbl.Text = "Login successful!";
+                    statusLbl.Foreground = Brushes.Green;
+                    MainApp mainApp = new MainApp(user);
+                    this.Close();
+                    mainApp.Show();
+                }
+                else
+                {
+                    statusLbl.Text = "Invalid email or password.";
+                }
             }
         }
         private void registerLinkTxt_Click(object sender, RoutedEventArgs e)
