@@ -17,8 +17,6 @@ namespace Tenant_Management_System
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
-    /// this is code
-    /// ok
     public partial class LoginPage : Window
     {
         public LoginPage()
@@ -38,9 +36,15 @@ namespace Tenant_Management_System
             {
                 loginerrorLbl.Text = "Password must be at least 6 characters long.";
             }
+            if (!(emailTbx.Text.Contains("@") && emailTbx.Text.Contains(".")))
+            {
+                loginerrorLbl.Text = "Email is not valid";
+                loginerrorLbl.Foreground = Brushes.Red;
+            }
             else
             {
-                loginerrorLbl.Text = " ";
+                loginerrorLbl.Text = "Success";
+                loginerrorLbl.Foreground = Brushes.Green;
             }
         }
         private void registerLinkTxt_Click(object sender, RoutedEventArgs e)

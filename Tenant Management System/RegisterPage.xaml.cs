@@ -22,27 +22,46 @@ namespace Tenant_Management_System
         public RegisterPage()
         {
             InitializeComponent();
+            registererrorLbl.Text = " ";
         }
 
         private void registerBtn_Click(object sender, RoutedEventArgs e)
         {
-            //inputs
-            //emailTbx - email input
-            //passwordTbx - password input
-            //confirmpasswordTbx - confirm password input
-            //registererrorLbl - error message label
+           
+            if(string.IsNullOrEmpty(emailTbx.Text) || string.IsNullOrEmpty(passwordTbx.Password) || string.IsNullOrEmpty(nameTbx.Text))
+            {
+                registererrorLbl.Text = "Email and password cannot be empty.";
+                return;
+            }
+            if (passwordTbx.Password.Length < 6)
+            {
+                registererrorLbl.Text = "Password must be at least 6 characters long.";
+                return;
+            }
+            if (passwordTbx.Password != confirmPasswordTbx.Password)
+            {
+                registererrorLbl.Text = "Password and confirm password must match.";
+                return;
+            }
+            else
+            {
+                registererrorLbl.Text = "Success ";
+                registererrorLbl.Foreground = Brushes.Green;
+            }
+            if(!(emailTbx.Text.Contains("@") && emailTbx.Text.Contains(".")))
+            {
+                registererrorLbl.Text = "Email is not valid";
+                registererrorLbl.Foreground = Brushes.Red;
+            }
 
-
-            //pass confirmed pass and emai cant be empty
-            //pass must be 6 characters long
-            //pass and confirm pass must match
-            //email must be valid
         }
 
         private void loginLinkTxt_Click(object sender, RoutedEventArgs e)
         {
-            //loginLinkTxt - login link
-            //when clicked, it should open the login page
+            LoginPage loginPage = new LoginPage();
+
+            this.Close();
+            loginPage.Show();
 
         }
     }
