@@ -17,11 +17,21 @@ namespace Tenant_Management_System
     /// <summary>
     /// Interaction logic for MainApp.xaml
     /// </summary>
+    /// 
+    
     public partial class MainApp : Window
     {
-        public MainApp()
+        private User LoggedInUser;
+
+        public MainApp(User user)
         {
             InitializeComponent();
+            LoggedInUser = user;
+
+            var lastname = LoggedInUser.Fullname.Split(' ')[1];
+            welcomeLbl.Text += lastname ;
+            welcomeLbl.Foreground = Brushes.Green;
+
         }
 
         private void apartmentsBtn_Click(object sender, RoutedEventArgs e)

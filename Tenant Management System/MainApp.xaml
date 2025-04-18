@@ -46,11 +46,66 @@
         <!-- Sidebar inside a border for padding and shadow -->
         <Border Background="White" Grid.Column="0" Margin="5" CornerRadius="10" Effect="{StaticResource DropShadow}">
             <StackPanel>
-                <TextBlock x:Name="dashboardLbl" Text="Dashboard" FontSize="18" FontWeight="Bold" Foreground="#FF984040" Margin="10,20,10,20"/>
-                <Button x:Name="apartmentsBtn" Content="Apartments" Style="{StaticResource SidebarButtonStyle}" Click="apartmentsBtn_Click"/>
-                <Button x:Name="tenantsBtn" Content="Tenants" Style="{StaticResource SidebarButtonStyle}" Click="tenantsBtn_Click"/>
-                <Button x:Name="roomsBtn" Content="Rooms" Style="{StaticResource SidebarButtonStyle}" Click="roomsBtn_Click"/>
-                <Button x:Name="settingsBtn" Content="Settings" Style="{StaticResource SidebarButtonStyle}" Click="settingsBtn_Click"/>
+                <TextBlock x:Name="welcomeLbl" Text="Welcome, " FontWeight="Bold" Foreground="#FF984040" RenderTransformOrigin="0.5,1">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform X="6" Y="15"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <TextBlock x:Name="dashboardLbl" Text="Dashboard" FontSize="18" FontWeight="Bold" Foreground="#FF984040" Height="26" RenderTransformOrigin="0.5,0">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform X="10" Y="25"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <Button x:Name="apartmentsBtn" Content="Apartments" Style="{StaticResource SidebarButtonStyle}" Click="apartmentsBtn_Click" RenderTransformOrigin="0.5,0">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="35"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Button x:Name="tenantsBtn" Content="Tenants" Style="{StaticResource SidebarButtonStyle}" Click="tenantsBtn_Click" RenderTransformOrigin="0.5,1">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="65"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Button x:Name="roomsBtn" Content="Rooms" Style="{StaticResource SidebarButtonStyle}" Click="roomsBtn_Click" RenderTransformOrigin="0.5,1">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="95"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Button x:Name="settingsBtn" Content="Settings" Style="{StaticResource SidebarButtonStyle}" Click="settingsBtn_Click" RenderTransformOrigin="0.5,1">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="120"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
             </StackPanel>
         </Border>
 
@@ -69,7 +124,7 @@
             <Grid x:Name="roomsPnl" Visibility="Collapsed" Height="394" VerticalAlignment="Center" HorizontalAlignment="Left" Width="580">
                 <TextBlock Text="Rooms Panel" FontSize="24" FontWeight="Bold" Margin="216,171,216,181"/>
             </Grid>
-            <Grid x:Name="settingsPnl" Visibility="visible">
+            <Grid x:Name="settingsPnl" Visibility="visible" RenderTransformOrigin="0.5,0">
                 <TextBlock Text="Settings Panel" FontSize="24" FontWeight="Bold" Margin="213,0,0,0" Height="32" VerticalAlignment="Center" HorizontalAlignment="Left" Width="167"/>
             </Grid>
         </Grid>
