@@ -96,7 +96,7 @@
                         </TransformGroup>
                     </Button.RenderTransform>
                 </Button>
-                <Button x:Name="settingsBtn" Content="Settings" Style="{StaticResource SidebarButtonStyle}" Click="settingsBtn_Click" RenderTransformOrigin="0.5,1">
+                <Button x:Name="settingsBtn" Content="Settings" Style="{StaticResource SidebarButtonStyle}" Click="settingsBtn_Click" RenderTransformOrigin="0,0.5">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -106,12 +106,26 @@
                         </TransformGroup>
                     </Button.RenderTransform>
                 </Button>
+                <TextBlock x:Name="logoutLinkTxt"
+                   Foreground="#0078d4"
+                   FontWeight="SemiBold"
+                   FontSize="14"
+                   Cursor="Hand"
+                   MouseDown="logoutLinkTxt_Click" RenderTransformOrigin="0.5,0.5" Width="48" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="130" X="0"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform><Run Text="Logout"/></TextBlock>
             </StackPanel>
         </Border>
 
         <!-- Main content panels -->
         <Grid Grid.Column="1" x:Name="ContentPanel" Margin="20">
-            <Grid x:Name="apartmentsPnl" Visibility="Collapsed">
+            <Grid x:Name="apartmentsPnl" Visibility="Collapsed" HorizontalAlignment="Left" Width="580" Height="394" VerticalAlignment="Center">
                 <TextBlock Text="Apartments Panel" FontSize="24" FontWeight="Bold" Margin="193,171,193,188"/>
             </Grid>
             <Grid x:Name="tenantsPnl" Visibility="Collapsed">
@@ -124,9 +138,116 @@
             <Grid x:Name="roomsPnl" Visibility="Collapsed" Height="394" VerticalAlignment="Center" HorizontalAlignment="Left" Width="580">
                 <TextBlock Text="Rooms Panel" FontSize="24" FontWeight="Bold" Margin="216,171,216,181"/>
             </Grid>
-            <Grid x:Name="settingsPnl" Visibility="visible" RenderTransformOrigin="0.5,0">
-                <TextBlock Text="Settings Panel" FontSize="24" FontWeight="Bold" Margin="213,0,0,0" Height="32" VerticalAlignment="Center" HorizontalAlignment="Left" Width="167"/>
+
+            <Grid x:Name="settingsPnl" Visibility="Visible" RenderTransformOrigin="0.5,0">
+
+                <Grid x:Name="settingsOverview" Visibility="Collapsed" Height="394" VerticalAlignment="Center" HorizontalAlignment="Left" Width="580">
+                    <Button x:Name="editProfileBtn" Content="Edit Profile" Style="{StaticResource SidebarButtonStyle}"  RenderTransformOrigin="0.5,0" Margin="0,162,0,0" HorizontalAlignment="Center" Width="150" Height="40" VerticalAlignment="Top" Click="editProfileBtn_Click">
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="35"/>
+                            </TransformGroup>
+                        </Button.RenderTransform>
+                    </Button>
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,37,0,0">
+                        <!-- Border ellipse -->
+                        <Ellipse Width="104" Height="104" Fill="Transparent" Stroke="#FF984040" StrokeThickness="2"/>
+
+                        <!-- Circular image -->
+                        <Image x:Name="profileImg"
+                           Width="100" Height="100"
+                           Stretch="UniformToFill"
+                           IsEnabled="False"
+                           Source="/Assets/defaultProfile.png">
+                            <Image.Clip>
+                                <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"/>
+                            </Image.Clip>
+                        </Image>
+                    </Grid>
+                    <TextBlock x:Name="fullNameLbl" Text="Full Name" FontSize="18" FontWeight="Bold" Foreground="#FF984040" RenderTransformOrigin="0.5,0" Margin="0,121,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="0" Y="25"/>
+                            </TransformGroup>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+
+                </Grid>
+
+                <Grid x:Name="editProfile" Visibility="visible" Height="394" VerticalAlignment="Center" HorizontalAlignment="Left" Width="580">
+                    <TextBox x:Name="emailTbx"
+                        Background="#FFE8E8E8"
+                        BorderBrush="#FF512F2F"
+                        BorderThickness="1"
+                        Padding="10,0"
+                        FontSize="14"
+                        VerticalContentAlignment="Center" Margin="251,27,0,0" HorizontalAlignment="Left" Width="270" Height="40" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="emailLbl" Text="Email" FontWeight="SemiBold" Foreground="#333" Margin="0,39,452,0" RenderTransformOrigin="-0.541,0.626" HorizontalAlignment="Right" Width="39" Height="16" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="emailLbl_Copy" Text="Previous Password" FontWeight="SemiBold" Foreground="#333" Margin="0,98,381,0" RenderTransformOrigin="-0.541,0.626" HorizontalAlignment="Right" Width="110" Height="16" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="emailLbl_Copy1" Text="Confirm New Password" FontWeight="SemiBold" Foreground="#333" Margin="0,216,334,0" RenderTransformOrigin="-0.541,0.626" HorizontalAlignment="Right" Width="157" Height="16" VerticalAlignment="Top"/>
+                    <Button x:Name="confirmEditBtn" Content="Edit" Style="{StaticResource SidebarButtonStyle}" RenderTransformOrigin="0.5,1" Margin="246,220,246,0" Height="40" VerticalAlignment="Top" Click="confirmEditBtn_Click">
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="65"/>
+                            </TransformGroup>
+                        </Button.RenderTransform>
+                    </Button>
+                    <TextBlock x:Name="backToSettingsLinkTxt"
+                        Foreground="#0078d4"
+                        FontWeight="SemiBold"
+                        FontSize="14"
+                        Cursor="Hand"
+                        MouseDown="backToSettingsLinkTxt_Click" RenderTransformOrigin="0.5,0.5" Margin="0,217,0,0" Height="19" VerticalAlignment="Top" HorizontalAlignment="Center" Width="114" Text="Back To Setttings">
+                        <TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="130" X="0"/>
+                            </TransformGroup>
+                        </TextBlock.RenderTransform></TextBlock>
+                    <PasswordBox x:Name="previousPasswordTbx"
+                        Background="#FFE8E8E8"
+                        BorderBrush="#FF512F2F"
+                        BorderThickness="1"
+                        Padding="10,0"
+                        FontSize="14"
+                        VerticalContentAlignment="Center" Margin="251,86,59,268"/>
+                    <PasswordBox x:Name="confirmNewPasswordTbx"
+                        Background="#FFE8E8E8"
+                        BorderBrush="#FF512F2F"
+                        BorderThickness="1"
+                        Padding="10,0"
+                        FontSize="14"
+                        VerticalContentAlignment="Center" Margin="251,204,59,150"/>
+                    <PasswordBox x:Name="newPasswordTbx"
+                        Background="#FFE8E8E8"
+                        BorderBrush="#FF512F2F"
+                        BorderThickness="1"
+                        Padding="10,0"
+                        FontSize="14"
+                        VerticalContentAlignment="Center" Margin="251,149,59,205"/>
+                    <TextBlock x:Name="emailLbl_Copy2" Text="New Password" FontWeight="SemiBold" Foreground="#333" Margin="0,161,334,0" RenderTransformOrigin="-0.541,0.626" HorizontalAlignment="Right" Width="157" Height="16" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="statusLbl" Text="Error"
+                        FontWeight="SemiBold"
+                        Foreground="#FFC01616"
+                           Margin="0,264,0,0" HorizontalAlignment="Center" Width="304" Height="15" VerticalAlignment="Top"/>
+
+                </Grid>
+
+
+
             </Grid>
+
         </Grid>
     </Grid>
 </Window>
