@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tenant_Management_System"
         mc:Ignorable="d"
-        Title="MainApp" Height="450" Width="800" Background="#FFF5F5F5">
+        Title="MainApp" Height="650" Width="1000" Background="#FFF5F5F5">
 
     <Window.Resources>
         <!-- Drop shadow effect -->
@@ -40,11 +40,12 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="180"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="51*"/>
+            <ColumnDefinition Width="154*"/>
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar inside a border for padding and shadow -->
-        <Border Background="White" Grid.Column="0" Margin="5" CornerRadius="10" Effect="{StaticResource DropShadow}">
+        <Border Background="White" Grid.Column="0" Margin="5,5,5,5" CornerRadius="10" Effect="{StaticResource DropShadow}">
             <StackPanel>
                 <TextBlock x:Name="welcomeLbl" Text="Welcome, " FontWeight="Bold" Foreground="#FF984040" RenderTransformOrigin="0.5,1">
                     <TextBlock.RenderTransform>
@@ -124,24 +125,354 @@
         </Border>
 
         <!-- Main content panels -->
-        <Grid Grid.Column="1" x:Name="ContentPanel" Margin="20">
-            <Grid x:Name="apartmentsPnl" Visibility="Collapsed" HorizontalAlignment="Left" Width="580" Height="394" VerticalAlignment="Center">
-                <TextBlock Text="Apartments Panel" FontSize="24" FontWeight="Bold" Margin="193,171,193,188"/>
+        <Grid Grid.Column="1" x:Name="ContentPanel" Margin="20,20,20,20" Grid.ColumnSpan="2">
+            <!-- Apartments Panel -->
+            <Grid x:Name="apartmentsPnl" Visibility="Visible" HorizontalAlignment="Center" Width="770" Height="574" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="-13"/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="250" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Add Appartments button -->
+                <Button x:Name="addNewApartmentBtn"
+                    Content="Add New Appartment"
+                    Height="30"
+                    Width="149"
+                    Style="{StaticResource SidebarButtonStyle}" RenderTransformOrigin="0.5,0.5" >
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="-264" X="430"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+
+                <!-- Left side: Title and DataGrid -->
+                <StackPanel Grid.Column="0" Margin="10">
+                    <TextBlock Text="Apartments" FontSize="24" FontWeight="Bold" Foreground="#FF984040" Margin="0,0,0,10"/>
+                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Margin="0" />
+                </StackPanel>
+
+                <!-- Right side: appartments delete /  edit to be adde later-->
+                <StackPanel Visibility="Visible" Grid.Column="1" Margin="10,0,10,0" VerticalAlignment="Center" Height="554" >
+
+                    <!-- Apartment No -->
+                    <TextBlock Text="Apartment No:" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,5" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left">
+                        <TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="0" Y="50"/>
+                            </TransformGroup>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBox x:Name="apartmentNoTbx"
+                         Background="#FFE5E5E5"
+                         BorderBrush="#FF984040"
+                         BorderThickness="1"
+                         Padding="10,0"
+                         FontSize="14"
+                         Margin="0,0,0,10"
+                         VerticalContentAlignment="Center" Width="150" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5">
+                        <TextBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="50"/>
+                            </TransformGroup>
+                        </TextBox.RenderTransform>
+                    </TextBox>
+
+                    <!-- Apartment Name -->
+                    <TextBlock Text="Apartment Name:" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,5" RenderTransformOrigin="0.5,1" HorizontalAlignment="Left">
+                        <TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="0" Y="80"/>
+                            </TransformGroup>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBox x:Name="apartmentNameTbx"
+                         Background="#FFE5E5E5"
+                         BorderBrush="#FF984040"
+                         BorderThickness="1"
+                         Padding="10,0"
+                         FontSize="14"
+                         Margin="0,0,0,10"
+                         VerticalContentAlignment="Center" Width="150" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5">
+                        <TextBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="80"/>
+                            </TransformGroup>
+                        </TextBox.RenderTransform>
+                    </TextBox>
+
+                    <!-- Address -->
+                    <TextBlock Text="Address:" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,5" RenderTransformOrigin="0.5,1" HorizontalAlignment="Left">
+                        <TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="0" Y="110"/>
+                            </TransformGroup>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBox x:Name="addressTbx"
+                         Background="#FFE5E5E5"
+                         BorderBrush="#FF984040"
+                         BorderThickness="1"
+                         Padding="10,0"
+                         FontSize="14"
+                         Margin="0,0,0,10"
+                         VerticalContentAlignment="Center" Width="150" HorizontalAlignment="Left" RenderTransformOrigin="0.5,1">
+                        <TextBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="109"/>
+                            </TransformGroup>
+                        </TextBox.RenderTransform>
+                    </TextBox>
+
+                    <!-- No of Rooms -->
+                    <TextBlock Text="No of Rooms:" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,5" RenderTransformOrigin="0.5,1" HorizontalAlignment="Left">
+                        <TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="0" Y="140"/>
+                            </TransformGroup>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBox x:Name="noOfRoomsTbx"
+                         Background="#FFE5E5E5"
+                         BorderBrush="#FF984040"
+                         BorderThickness="1"
+                         Padding="10,0"
+                         FontSize="14"
+                         Margin="0,0,0,20"
+                         VerticalContentAlignment="Center" Width="150" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5">
+                        <TextBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="140"/>
+                            </TransformGroup>
+                        </TextBox.RenderTransform>
+                    </TextBox>
+
+                    <!--Apartment Delete Button -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5">
+                        <StackPanel.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="0" Y="170"/>
+                            </TransformGroup>
+                        </StackPanel.RenderTransform>
+                        <Button x:Name="deleteBtn"
+                            Content="Delete"
+                            Height="30"
+                            Width="70"
+                            Margin="0,0,10,0"
+                            Style="{StaticResource SidebarButtonStyle}" Background="#FF797474" />
+
+                    </StackPanel>
+
+                </StackPanel>
+
             </Grid>
-            <Grid x:Name="tenantsPnl" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="195*"/>
-                    <RowDefinition Height="199*"/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Tenants Panel" FontSize="24" FontWeight="Bold" Margin="0,178,0,0" Height="38" VerticalAlignment="Top" HorizontalAlignment="Center" Width="152" Grid.RowSpan="2"/>
+
+            <!-- Tenants Panel -->
+            <Grid x:Name="tenantsPnl" Visibility="collapsed">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="-13"/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="250" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Add Tenants button -->
+                <Button x:Name="addNewTenantBtn"
+                    Content="Add New Tenant"
+                    Height="30"
+                    Width="149"
+                    Style="{StaticResource SidebarButtonStyle}" RenderTransformOrigin="0.5,0.5" >
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="-264" X="430"/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+
+                <!-- Left side: Title and DataGrid -->
+                <StackPanel Grid.Column="0" Margin="10">
+                    <TextBlock Text="Tenants" FontSize="24" FontWeight="Bold" Foreground="#FF984040" Margin="0,0,0,10"/>
+                    <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Margin="0" />
+                </StackPanel>
+
+                <!-- Right side: Assign tenant a room-->
+                <StackPanel Visibility="Visible" Grid.Column="1" Margin="10,0,10,0" VerticalAlignment="Center" Height="554" >
+
+                    <!-- Tenant Number -->
+                    <TextBlock x:Name="tenantNoLbl" Text="Tenant No:" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,5" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left">
+                        <TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="0" Y="80"/>
+                            </TransformGroup>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBox x:Name="tenantNoTbx"
+                         Background="#FFE5E5E5"
+                         BorderBrush="#FF984040"
+                         BorderThickness="1"
+                         Padding="10,0"
+                         FontSize="14"
+                         Margin="0,0,0,10"
+                         VerticalContentAlignment="Center" Width="150" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5">
+                        <TextBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="80"/>
+                            </TransformGroup>
+                        </TextBox.RenderTransform>
+                    </TextBox>
+
+                    <!-- Apartment Number -->
+                    <TextBlock Text="Appartment No:" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,5" RenderTransformOrigin="0.5,1" HorizontalAlignment="Left">
+                        <TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="0" Y="110"/>
+                            </TransformGroup>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBox
+                         Background="#FFE5E5E5"
+                         BorderBrush="#FF984040"
+                         BorderThickness="1"
+                         Padding="10,0"
+                         FontSize="14"
+                         Margin="0,0,0,10"
+                         VerticalContentAlignment="Center" Width="150" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5">
+                        <TextBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="110"/>
+                            </TransformGroup>
+                        </TextBox.RenderTransform>
+                    </TextBox>
+
+                    <!-- Room Number -->
+                    <TextBlock Text="Room No:" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,5" RenderTransformOrigin="0.5,1" HorizontalAlignment="Left">
+                        <TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="0" Y="140"/>
+                            </TransformGroup>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                    <TextBox
+                         Background="#FFE5E5E5"
+                         BorderBrush="#FF984040"
+                         BorderThickness="1"
+                         Padding="10,0"
+                         FontSize="14"
+                         Margin="0,0,0,10"
+                         VerticalContentAlignment="Center" Width="150" HorizontalAlignment="Left" RenderTransformOrigin="0.5,1">
+                        <TextBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="144"/>
+                            </TransformGroup>
+                        </TextBox.RenderTransform>
+                    </TextBox>
+
+                    <!-- Assign room button / edit to be added later -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5">
+                        <StackPanel.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="0" Y="170"/>
+                            </TransformGroup>
+                        </StackPanel.RenderTransform>
+                        <Button x:Name="assignRoomBtn"
+                            Content="Assign Room"
+                            Height="30"
+                            Width="88"
+                            Margin="0,0,10,0"
+                            Style="{StaticResource SidebarButtonStyle}" Background="#FF797474" />
+
+                    </StackPanel>
+                    <TextBlock x:Name="tenantNoLbl_Copy" Text="Assign Tenant a Room" FontWeight="SemiBold" Foreground="#FF984040" RenderTransformOrigin="0.5,0.5" FontSize="14" TextDecorations="Underline">
+                        <TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="0" Y="-131"/>
+                            </TransformGroup>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+
+                </StackPanel>
             </Grid>
+            
+            <!-- Rooms Panel -->
             <Grid x:Name="roomsPnl" Visibility="Collapsed" Height="394" VerticalAlignment="Center" HorizontalAlignment="Left" Width="580">
                 <TextBlock Text="Rooms Panel" FontSize="24" FontWeight="Bold" Margin="216,171,216,181"/>
             </Grid>
 
-            <Grid x:Name="settingsPnl" Visibility="Visible" RenderTransformOrigin="0.5,0">
+            <!-- Settings Panel -->
+            <Grid x:Name="settingsPnl" Visibility="collapsed" RenderTransformOrigin="0.5,0">
 
-                <Grid x:Name="settingsOverview" Visibility="Collapsed" Height="394" VerticalAlignment="Center" HorizontalAlignment="Left" Width="580">
+                <Grid x:Name="settingsOverview" Visibility="visible" Height="394" VerticalAlignment="Center" HorizontalAlignment="Left" Width="580">
                     <Button x:Name="editProfileBtn" Content="Edit Profile" Style="{StaticResource SidebarButtonStyle}"  RenderTransformOrigin="0.5,0" Margin="0,162,0,0" HorizontalAlignment="Center" Width="150" Height="40" VerticalAlignment="Top" Click="editProfileBtn_Click">
                         <Button.RenderTransform>
                             <TransformGroup>
@@ -180,7 +511,7 @@
 
                 </Grid>
 
-                <Grid x:Name="editProfile" Visibility="visible" Height="394" VerticalAlignment="Center" HorizontalAlignment="Left" Width="580">
+                <Grid x:Name="editProfile" Visibility="Collapsed" Height="394" VerticalAlignment="Center" HorizontalAlignment="Left" Width="580">
                     <TextBox x:Name="emailTbx"
                         Background="#FFE8E8E8"
                         BorderBrush="#FF512F2F"
@@ -247,6 +578,7 @@
 
 
             </Grid>
+
 
         </Grid>
     </Grid>
