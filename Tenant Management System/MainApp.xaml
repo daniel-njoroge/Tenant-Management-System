@@ -87,17 +87,15 @@
         <!-- Sidebar -->
         <Border Background="White" Grid.Column="0" Margin="10" CornerRadius="10" Effect="{StaticResource DropShadow}">
             <DockPanel LastChildFill="False">
-                <TextBlock Text="TMS" FontSize="16" FontWeight="Bold" Foreground="#FF984040" Margin="10,15,10,5" 
-                         TextWrapping="Wrap" TextAlignment="Center" DockPanel.Dock="Top"/>
-
+                
                 <TextBlock x:Name="welcomeLbl" Text="Welcome, " FontWeight="Bold" Foreground="#FF984040" Margin="10,5,10,20" 
                          DockPanel.Dock="Top" TextAlignment="Center" HorizontalAlignment="Left"/>
 
-                <StackPanel DockPanel.Dock="Top" Margin="0,10,0,0">
-                    <Button x:Name="apartmentsBtn" Content="Apartments" Style="{StaticResource SidebarButtonStyle}" Click="apartmentsBtn_Click"/>
-                    <Button x:Name="tenantsBtn" Content="Tenants" Style="{StaticResource SidebarButtonStyle}" Click="tenantsBtn_Click"/>
-                    <Button x:Name="roomsBtn" Content="Rooms" Style="{StaticResource SidebarButtonStyle}" Click="roomsBtn_Click"/>
-                    <Button x:Name="settingsBtn" Content="Settings" Style="{StaticResource SidebarButtonStyle}" Click="settingsBtn_Click"/>
+                <StackPanel DockPanel.Dock="Top" Margin="0,10,0,0" Height="342">
+                    <Button x:Name="apartmentsTabBtn" Content="Apartments" Style="{StaticResource SidebarButtonStyle}" Click="apartmentsTabBtn_Click" Margin="10,5,10,30"/>
+                    <Button x:Name="tenantsTabBtn" Content="Tenants" Style="{StaticResource SidebarButtonStyle}" Click="tenantsTabBtn_Click" Margin="10,5,10,30"/>
+                    <Button x:Name="roomsTabBtn" Content="Rooms" Style="{StaticResource SidebarButtonStyle}" Click="roomsTabBtn_Click" Margin="10,5,10,30"/>
+                    <Button x:Name="settingsTabBtn" Content="Settings" Style="{StaticResource SidebarButtonStyle}" Click="settingsTabBtn_Click" Margin="10,5,10,5"/>
                 </StackPanel>
 
                 <TextBlock x:Name="logoutLinkTxt" Text="Logout" Style="{StaticResource HyperlinkStyle}" 
@@ -108,8 +106,11 @@
         <!-- Main content panels -->
         <Border Grid.Column="1" Margin="0,10,10,10" Background="White" CornerRadius="10" Effect="{StaticResource DropShadow}">
             <Grid x:Name="ContentPanel" Margin="20">
+                
+                
                 <!-- Apartments Panel -->
                 <Grid x:Name="apartmentsPnl" Visibility="Collapsed">
+                    
                     <!-- Apartments Panel home / overview -->
                     <Grid x:Name="apartmentsOverview" Visibility="Collapsed">
                         <Grid.ColumnDefinitions>
@@ -125,7 +126,7 @@
                                     Style="{StaticResource SidebarButtonStyle}" Click="addNewApartmentBtn_Click" DockPanel.Dock="Right"/>
                             </DockPanel>
 
-                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Margin="0,15,0,0" DockPanel.Dock="Top"/>
+                            <DataGrid x:Name="apartmentsDgr" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Margin="0,15,0,0" DockPanel.Dock="Top"/>
                         </DockPanel>
 
                         <!-- Right side: apartments details -->
@@ -133,24 +134,24 @@
                             <TextBlock Text="Apartment Details" FontSize="16" FontWeight="Bold" Foreground="#FF984040" Margin="0,0,0,15" HorizontalAlignment="Center"/>
 
                             <TextBlock Text="Apartment No:" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="apartmentNoTbx" Style="{StaticResource InputTextBoxStyle}" Width="195" HorizontalAlignment="Left"/>
+                            <TextBox x:Name="selectedApartmentNoTbx" Style="{StaticResource InputTextBoxStyle}" Width="195" HorizontalAlignment="Left"/>
 
                             <TextBlock Text="Apartment Name:" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
-                            <TextBox x:Name="apartmentNameTbx" Style="{StaticResource InputTextBoxStyle}" Width="195" HorizontalAlignment="Left"/>
+                            <TextBox x:Name="selectedApartmentNameTbx" Style="{StaticResource InputTextBoxStyle}" Width="195" HorizontalAlignment="Left"/>
 
                             <TextBlock Text="Address:" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
-                            <TextBox x:Name="addressTbx" Style="{StaticResource InputTextBoxStyle}" Width="195" HorizontalAlignment="Left"/>
+                            <TextBox x:Name="selectedApartmentAddressTbx" Style="{StaticResource InputTextBoxStyle}" Width="195" HorizontalAlignment="Left"/>
 
                             <TextBlock Text="No of Rooms:" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
-                            <TextBox x:Name="noOfRoomsTbx" Style="{StaticResource InputTextBoxStyle}" Width="195" HorizontalAlignment="Left"/>
+                            <TextBox x:Name="selectedApartmentNoOfRoomsTbx" Style="{StaticResource InputTextBoxStyle}" Width="195" HorizontalAlignment="Left"/>
 
-                            <Button x:Name="deleteBtn" Content="Delete" Height="30" Width="70" Margin="0,20,0,0"
+                            <Button x:Name="selectedApartmentDeleteBtn" Content="Delete" Height="30" Width="70" Margin="0,20,0,0"
                                 Style="{StaticResource SidebarButtonStyle}" Background="#FF797474" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Grid>
 
                     <!-- Apartments Panel add new apartment pnl -->
-                    <Grid x:Name="addNewApartmentPnl" Visibility="Visible">
+                    <Grid x:Name="addNewApartmentPnl" Visibility="Collapsed">
                         <StackPanel MaxWidth="600" HorizontalAlignment="Center" Margin="0,75,0,60" Width="406">
                             <TextBlock Text="Add New Apartment" FontSize="24" FontWeight="Bold" Foreground="#FF984040" Margin="0,0,0,20" 
                                      HorizontalAlignment="Center"/>
@@ -182,8 +183,8 @@
                                 <TextBox x:Name="addApartmentAddressTbx" Style="{StaticResource InputTextBoxStyle}" Grid.Row="2" Grid.Column="1" Margin="70,0,0,10"/>
 
                                 <!-- Row 3 -->
-                                <TextBlock Text="Rooms Type:" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
-                                <TextBox x:Name="addApartmentRoomsTypeTbx" Style="{StaticResource InputTextBoxStyle}" Grid.Row="3" Grid.Column="1" Margin="70,0,0,10"/>
+                                <TextBlock Text="Rooms Type:" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>                                
+                                <ComboBox x:Name="addApartmentRoomsTypeTbx"  Grid.Row="3" Grid.Column="1" Margin="70,0,0,10" Height="30"/> 
 
                                 <!-- Row 4 -->
                                 <TextBlock Text="No of Rooms:" Style="{StaticResource LabelStyle}" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
@@ -192,6 +193,7 @@
                                 <!-- Row 5 -->
                                 <TextBlock Text="Price per Room:" Style="{StaticResource LabelStyle}" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"/>
                                 <TextBox x:Name="addApartmentRoomsPriceTbx" Style="{StaticResource InputTextBoxStyle}" Grid.Row="5" Grid.Column="1" Margin="70,0,0,10"/>
+                                
                             </Grid>
 
                             <Button x:Name="addApartmentBtn" Content="Add Apartment" Height="40" Width="150"
@@ -205,7 +207,7 @@
                 </Grid>
 
                 <!-- Tenants Panel -->                
-                <Grid x:Name="tenantsPnl" Visibility="Visible">
+                <Grid x:Name="tenantsPnl" Visibility="Collapsed">
                     <Grid x:Name="tenantsOverview" Visibility="Collapsed">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*" />
@@ -220,7 +222,7 @@
                                         Style="{StaticResource SidebarButtonStyle}" DockPanel.Dock="Right" Click="addNewTenantBtn_Click"/>
                             </DockPanel>
 
-                            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Margin="0,15,0,0" DockPanel.Dock="Top"/>
+                            <DataGrid x:Name="tenantsDgr" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Margin="0,15,0,0" DockPanel.Dock="Top"/>
                         </DockPanel>
 
                         <!-- Right side: Assign tenant a room -->
@@ -228,21 +230,21 @@
                             <TextBlock Text="Assign Tenant a Room" FontSize="14" FontWeight="Bold" Foreground="#FF984040" Margin="0,0,0,15" HorizontalAlignment="Center"/>
 
                             <TextBlock Text="Tenant No:" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="tenantNoTbx" Style="{StaticResource InputTextBoxStyle}" Width="180" HorizontalAlignment="Left"/>
+                            <TextBox x:Name="selectedTenantNoTbx" Style="{StaticResource InputTextBoxStyle}" Width="180" HorizontalAlignment="Left"/>
 
                             <TextBlock Text="Apartment No:" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
-                            <TextBox Style="{StaticResource InputTextBoxStyle}" Width="180" HorizontalAlignment="Left"/>
+                            <ComboBox x:Name="selectedTenantApartmentNoCbx"  Width="180" Height="30" HorizontalAlignment="Left"/>
 
                             <TextBlock Text="Room No:" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
-                            <TextBox Style="{StaticResource InputTextBoxStyle}" Width="180" HorizontalAlignment="Left"/>
+                            <ComboBox x:Name="selectedTenantRoomNoCbx"  Width="180" Height="30" HorizontalAlignment="Left"/>
 
                             <Button x:Name="assignRoomBtn" Content="Assign Room" Height="30" Width="120" Margin="0,20,0,0"
-                                    Style="{StaticResource SidebarButtonStyle}" HorizontalAlignment="Left"/>
+                                    Style="{StaticResource SidebarButtonStyle}" HorizontalAlignment="Left" Click="assignRoomBtn_Click"/>
                         </StackPanel>
                     </Grid>
                     
                     <!-- Tenants Panel - add new Tenant pnl -->
-                    <Grid x:Name="addNewTenantPnl" Visibility="Visible">
+                    <Grid x:Name="addNewTenantPnl" Visibility="Collapsed">
                         <StackPanel MaxWidth="600" HorizontalAlignment="Center" Margin="0,75,0,60" Width="406">
                             <TextBlock Text="Add New Tenant" FontSize="24" FontWeight="Bold" Foreground="#FF984040" Margin="0,0,0,20" 
                                         HorizontalAlignment="Center"/>

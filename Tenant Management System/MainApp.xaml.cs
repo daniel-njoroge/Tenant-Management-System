@@ -42,7 +42,7 @@ namespace Tenant_Management_System
 
 
         //Apartments
-        private void apartmentsBtn_Click(object sender, RoutedEventArgs e)
+        private void apartmentsTabBtn_Click(object sender, RoutedEventArgs e)
         {
             
             tenantsPnl.Visibility = Visibility.Collapsed;
@@ -75,7 +75,7 @@ namespace Tenant_Management_System
 
 
         //Tenants
-        private void tenantsBtn_Click(object sender, RoutedEventArgs e)
+        private void tenantsTabBtn_Click(object sender, RoutedEventArgs e)
         {
             apartmentsPnl.Visibility = Visibility.Collapsed;
             roomsPnl.Visibility = Visibility.Collapsed;
@@ -89,6 +89,11 @@ namespace Tenant_Management_System
         {
             tenantsOverview.Visibility = Visibility.Collapsed;
             addNewTenantPnl.Visibility = Visibility.Visible;
+
+        }
+
+        private void assignRoomBtn_Click(object sender, RoutedEventArgs e)
+        {
 
         }
         private void addTenantBtn_Click(object sender, RoutedEventArgs e)
@@ -106,7 +111,7 @@ namespace Tenant_Management_System
 
 
         //Rooms
-        private void roomsBtn_Click(object sender, RoutedEventArgs e)
+        private void roomsTabBtn_Click(object sender, RoutedEventArgs e)
         {
             apartmentsPnl.Visibility = Visibility.Collapsed;
             tenantsPnl.Visibility = Visibility.Collapsed;
@@ -119,7 +124,7 @@ namespace Tenant_Management_System
 
 
         //Settings
-        private void settingsBtn_Click(object sender, RoutedEventArgs e)
+        private void settingsTabBtn_Click(object sender, RoutedEventArgs e)
         {
             apartmentsPnl.Visibility = Visibility.Collapsed;
             tenantsPnl.Visibility = Visibility.Collapsed;
