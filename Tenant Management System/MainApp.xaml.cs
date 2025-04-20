@@ -40,6 +40,8 @@ namespace Tenant_Management_System
 
         }
 
+
+        //Apartments
         private void apartmentsBtn_Click(object sender, RoutedEventArgs e)
         {
             
@@ -47,17 +49,63 @@ namespace Tenant_Management_System
             roomsPnl.Visibility = Visibility.Collapsed;
             settingsPnl.Visibility = Visibility.Collapsed;
             apartmentsPnl.Visibility = Visibility.Visible;
+            addNewApartmentPnl.Visibility = Visibility.Collapsed;
+            apartmentsOverview.Visibility = Visibility.Visible;
 
         }
 
+        private void addNewApartmentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            apartmentsOverview.Visibility = Visibility.Collapsed;
+            addNewApartmentPnl.Visibility = Visibility.Visible;
+            
+        }
+
+        private void addApartmentBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void backToAppartmentsLnk_Click(object sender, RoutedEventArgs e)
+        {
+            addNewApartmentPnl.Visibility = Visibility.Collapsed;
+            apartmentsOverview.Visibility = Visibility.Visible;
+        }
+
+       
+
+
+        //Tenants
         private void tenantsBtn_Click(object sender, RoutedEventArgs e)
         {
             apartmentsPnl.Visibility = Visibility.Collapsed;
             roomsPnl.Visibility = Visibility.Collapsed;
             settingsPnl.Visibility = Visibility.Collapsed;
+            addNewTenantPnl.Visibility = Visibility.Collapsed;
+            tenantsOverview.Visibility = Visibility.Visible;
             tenantsPnl.Visibility = Visibility.Visible;
         }
 
+        private void addNewTenantBtn_Click(object sender, RoutedEventArgs e)
+        {
+            tenantsOverview.Visibility = Visibility.Collapsed;
+            addNewTenantPnl.Visibility = Visibility.Visible;
+
+        }
+        private void addTenantBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void backToTenantsLnk_Click(object sender, RoutedEventArgs e)
+        {
+            addNewTenantPnl.Visibility = Visibility.Collapsed;
+            tenantsOverview.Visibility = Visibility.Visible;
+        }
+
+
+
+
+        //Rooms
         private void roomsBtn_Click(object sender, RoutedEventArgs e)
         {
             apartmentsPnl.Visibility = Visibility.Collapsed;
@@ -67,6 +115,10 @@ namespace Tenant_Management_System
 
         }
 
+
+
+
+        //Settings
         private void settingsBtn_Click(object sender, RoutedEventArgs e)
         {
             apartmentsPnl.Visibility = Visibility.Collapsed;
@@ -94,8 +146,8 @@ namespace Tenant_Management_System
         private void confirmEditBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            
-            if(string.IsNullOrEmpty(newPasswordTbx.Password))
+
+            if (string.IsNullOrEmpty(newPasswordTbx.Password))
             {
                 statusLbl.Text = "New Password cannot be empty.";
                 return;
@@ -104,7 +156,7 @@ namespace Tenant_Management_System
             {
                 statusLbl.Text = "Password must be at least 6 characters long.";
             }
-            if(newPasswordTbx.Password != confirmNewPasswordTbx.Password)
+            if (newPasswordTbx.Password != confirmNewPasswordTbx.Password)
             {
                 statusLbl.Text = "New Passwords do not match.";
             }
@@ -134,6 +186,7 @@ namespace Tenant_Management_System
             editProfile.Visibility = Visibility.Collapsed;
             settingsOverview.Visibility = Visibility.Visible;
         }
+
         private void logoutLinkTxt_Click(object sender, RoutedEventArgs e)
         {
 
