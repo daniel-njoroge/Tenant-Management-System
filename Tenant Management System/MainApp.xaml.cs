@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,25 +33,172 @@ namespace Tenant_Management_System
             welcomeLbl.Text += lastname ;
             welcomeLbl.Foreground = Brushes.Green;
 
+            apartmentsPnl.Visibility = Visibility.Collapsed;
+            tenantsPnl.Visibility = Visibility.Collapsed;
+            roomsPnl.Visibility = Visibility.Collapsed;
+            settingsPnl.Visibility = Visibility.Collapsed;
+
         }
 
-        private void apartmentsBtn_Click(object sender, RoutedEventArgs e)
+
+        //Apartments
+        private void apartmentsTabBtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+            tenantsPnl.Visibility = Visibility.Collapsed;
+            roomsPnl.Visibility = Visibility.Collapsed;
+            settingsPnl.Visibility = Visibility.Collapsed;
+            apartmentsPnl.Visibility = Visibility.Visible;
+            addNewApartmentPnl.Visibility = Visibility.Collapsed;
+            apartmentsOverview.Visibility = Visibility.Visible;
+
+        }
+
+        private void addNewApartmentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            apartmentsOverview.Visibility = Visibility.Collapsed;
+            addNewApartmentPnl.Visibility = Visibility.Visible;
+            
+        }
+
+        private void addApartmentBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void backToAppartmentsLnk_Click(object sender, RoutedEventArgs e)
+        {
+            addNewApartmentPnl.Visibility = Visibility.Collapsed;
+            apartmentsOverview.Visibility = Visibility.Visible;
+        }
+
+       
+
+
+        //Tenants
+        private void tenantsTabBtn_Click(object sender, RoutedEventArgs e)
+        {
+            apartmentsPnl.Visibility = Visibility.Collapsed;
+            roomsPnl.Visibility = Visibility.Collapsed;
+            settingsPnl.Visibility = Visibility.Collapsed;
+            addNewTenantPnl.Visibility = Visibility.Collapsed;
+            tenantsOverview.Visibility = Visibility.Visible;
+            tenantsPnl.Visibility = Visibility.Visible;
+        }
+
+        private void addNewTenantBtn_Click(object sender, RoutedEventArgs e)
+        {
+            tenantsOverview.Visibility = Visibility.Collapsed;
+            addNewTenantPnl.Visibility = Visibility.Visible;
+
+        }
+
+        private void assignRoomBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void addTenantBtn_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void tenantsBtn_Click(object sender, RoutedEventArgs e)
+        private void backToTenantsLnk_Click(object sender, RoutedEventArgs e)
         {
+            addNewTenantPnl.Visibility = Visibility.Collapsed;
+            tenantsOverview.Visibility = Visibility.Visible;
+        }
+
+
+
+
+        //Rooms
+        private void roomsTabBtn_Click(object sender, RoutedEventArgs e)
+        {
+            apartmentsPnl.Visibility = Visibility.Collapsed;
+            tenantsPnl.Visibility = Visibility.Collapsed;
+            settingsPnl.Visibility = Visibility.Collapsed;
+            roomsPnl.Visibility = Visibility.Visible;
 
         }
 
-        private void roomsBtn_Click(object sender, RoutedEventArgs e)
+
+
+
+        //Settings
+        private void settingsTabBtn_Click(object sender, RoutedEventArgs e)
         {
+            apartmentsPnl.Visibility = Visibility.Collapsed;
+            tenantsPnl.Visibility = Visibility.Collapsed;
+            roomsPnl.Visibility = Visibility.Collapsed;
+            settingsPnl.Visibility = Visibility.Visible;
+            settingsOverview.Visibility = Visibility.Visible;
+            editProfile.Visibility = Visibility.Collapsed;
+
+            fullNameLbl.Text = LoggedInUser.Fullname;
+        }
+
+        private void editProfileBtn_Click(object sender, RoutedEventArgs e)
+        {
+            settingsOverview.Visibility = Visibility.Collapsed;
+            editProfile.Visibility = Visibility.Visible;
+
+            emailTbx.Text = LoggedInUser.Email;
+
+            statusLbl.Text = " ";
+
 
         }
 
-        private void settingsBtn_Click(object sender, RoutedEventArgs e)
+        private void confirmEditBtn_Click(object sender, RoutedEventArgs e)
         {
+
+
+            if (string.IsNullOrEmpty(newPasswordTbx.Password))
+            {
+                statusLbl.Text = "New Password cannot be empty.";
+                return;
+            }
+            if (newPasswordTbx.Password.Length < 6)
+            {
+                statusLbl.Text = "Password must be at least 6 characters long.";
+            }
+            if (newPasswordTbx.Password != confirmNewPasswordTbx.Password)
+            {
+                statusLbl.Text = "New Passwords do not match.";
+            }
+            else
+            {
+                var db = new MongoDBConnection();
+                var user = db.Users.Find(u => u.Email == emailTbx.Text && u.Password == previousPasswordTbx.Password).FirstOrDefault();
+                if (user != null)
+                {
+                    var update = Builders<User>.Update.Set(u => u.Password, newPasswordTbx.Password);
+                    db.Users.UpdateOne(u => u.Id == user.Id, update);
+
+                    statusLbl.Text = "Password Changed successfully!";
+                    statusLbl.Foreground = Brushes.Green;
+                }
+                else
+                {
+                    statusLbl.Text = "Wrong Previous Password.";
+                    statusLbl.Foreground = Brushes.Red;
+                }
+            }
+
+        }
+
+        private void backToSettingsLinkTxt_Click(object sender, RoutedEventArgs e)
+        {
+            editProfile.Visibility = Visibility.Collapsed;
+            settingsOverview.Visibility = Visibility.Visible;
+        }
+
+        private void logoutLinkTxt_Click(object sender, RoutedEventArgs e)
+        {
+
+            LoginPage loginPage = new LoginPage();
+
+            this.Close();
+            loginPage.Show();
 
         }
     }
