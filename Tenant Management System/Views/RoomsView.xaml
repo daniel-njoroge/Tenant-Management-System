@@ -11,10 +11,40 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid x:Name="roomsPnl">
-        <DockPanel LastChildFill="True">
-            <TextBlock Text="Rooms" FontSize="24" FontWeight="Bold" Foreground="#FF984040" Margin="0,0,0,10" DockPanel.Dock="Top"/>
-            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" DockPanel.Dock="Top"/>
-        </DockPanel>
+    <Grid x:Name="roomsPnl" Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Header (Title + Button) -->
+            <RowDefinition Height="*"/>
+            <!-- DataGrid -->
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Rooms" FontSize="24" FontWeight="Bold" 
+                       Foreground="#FF984040" VerticalAlignment="Center"/>
+            <Button Grid.Column="1" x:Name="reloadRoomsBtn" Content="Reload Rooms" 
+                    Width="120" Height="30" Margin="10,0,0,0" 
+                    Style="{StaticResource SidebarButtonStyle}" 
+                    Click="reloadRoomsBtn_Click"/>
+        </Grid>
+
+        <!-- DataGrid -->
+        <DataGrid Grid.Row="1" x:Name="roomsDgr" AutoGenerateColumns="False" 
+                  Margin="0,15,0,0" CanUserAddRows="False" IsReadOnly="True"
+                  SelectionChanged="roomsDgr_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Room No" Binding="{Binding RoomNumber}" Width="100"/>
+                <DataGridTextColumn Header="Apartment No" Binding="{Binding ApartmentNo}" Width="100"/>
+                <DataGridTextColumn Header="Room Type" Binding="{Binding RoomType}" Width="100"/>
+                <DataGridTextColumn Header="Price" Binding="{Binding PricePerRoom}" Width="100"/>
+                <DataGridTextColumn Header="Room Status" Binding="{Binding RoomStatus}" Width="100"/>
+                <DataGridTextColumn Header="Paid" Binding="{Binding RoomPaid}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

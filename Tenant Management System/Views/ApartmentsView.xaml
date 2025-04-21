@@ -25,8 +25,7 @@
                     <Button x:Name="addNewApartmentBtn" Content="Add New Apartment" Height="30" Width="150"
                             Style="{StaticResource SidebarButtonStyle}" Click="addNewApartmentBtn_Click" DockPanel.Dock="Right"/>
                 </DockPanel>
-                <DataGrid x:Name="apartmentsDgr" AutoGenerateColumns="False" Margin="0,15,0,0" DockPanel.Dock="Top"
-                          SelectionChanged="apartmentsDgr_SelectionChanged">
+                <DataGrid x:Name="apartmentsDgr" AutoGenerateColumns="False" Margin="0,15,0,0" DockPanel.Dock="Top" SelectionChanged="apartmentsDgr_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Apartment No" Binding="{Binding ApartmentNo}" Width="100"/>
                         <DataGridTextColumn Header="Name" Binding="{Binding ApartmentName}" Width="100"/>
