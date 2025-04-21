@@ -28,8 +28,10 @@
                 </Border>
                 <TextBlock x:Name="fullNameLbl" Text="Full Name" FontSize="18" FontWeight="Bold" Foreground="#FF984040" 
                            HorizontalAlignment="Center" Margin="0,10,0,20"/>
-                <Button x:Name="editProfileBtn" Content="Edit Profile" Style="{StaticResource SidebarButtonStyle}" 
+                <Button x:Name="editProfileBtn" Content="Change password" Style="{StaticResource SidebarButtonStyle}" 
                         HorizontalAlignment="Center" Width="150" Height="40" Margin="0,10,0,0" Click="editProfileBtn_Click"/>
+                <Button x:Name="deleteAccountBtn" Content="Delete Account" Style="{StaticResource SidebarButtonStyle}" 
+                        HorizontalAlignment="Center" Width="150" Height="40" Margin="0,10,0,0" Click="deleteAccountBtn_Click"/>
             </StackPanel>
         </Grid>
         <!-- Edit Profile Panel -->
