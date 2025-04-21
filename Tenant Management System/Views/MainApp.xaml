@@ -1,0 +1,44 @@
+﻿<Window x:Class="Tenant_Management_System.Views.MainApp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tenant_Management_System.Views"
+        mc:Ignorable="d"
+        Title="Tenant Management System" Height="650" Width="1100" Background="#FFF5F5F5"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar -->
+        <Border Background="White" Grid.Column="0" Margin="10" CornerRadius="10" Effect="{StaticResource DropShadow}">
+            <DockPanel LastChildFill="False">
+                <TextBlock x:Name="welcomeLbl" Text="Welcome, " FontWeight="Bold" Foreground="#FF984040" Margin="10,5,10,20" 
+                           DockPanel.Dock="Top" TextAlignment="Center" HorizontalAlignment="Left"/>
+                <StackPanel DockPanel.Dock="Top" Margin="0,10,0,0" Height="342">
+                    <Button x:Name="apartmentsTabBtn" Content="Apartments" Style="{StaticResource SidebarButtonStyle}" Click="apartmentsTabBtn_Click" Margin="10,5,10,30"/>
+                    <Button x:Name="tenantsTabBtn" Content="Tenants" Style="{StaticResource SidebarButtonStyle}" Click="tenantsTabBtn_Click" Margin="10,5,10,30"/>
+                    <Button x:Name="roomsTabBtn" Content="Rooms" Style="{StaticResource SidebarButtonStyle}" Click="roomsTabBtn_Click" Margin="10,5,10,30"/>
+                    <Button x:Name="settingsTabBtn" Content="Settings" Style="{StaticResource SidebarButtonStyle}" Click="settingsTabBtn_Click" Margin="10,5,10,5"/>
+                </StackPanel>
+                <TextBlock x:Name="logoutLinkTxt" Text="Logout" Style="{StaticResource HyperlinkStyle}" 
+                           DockPanel.Dock="Bottom" Margin="0,0,0,20" MouseDown="logoutLinkTxt_Click"/>
+            </DockPanel>
+        </Border>
+
+        <!-- Main Content Area -->
+        <Border Grid.Column="1" Margin="0,10,10,10" Background="White" CornerRadius="10" Effect="{StaticResource DropShadow}">
+            <ContentControl x:Name="MainContent" Margin="20"/>
+        </Border>
+    </Grid>
+</Window>

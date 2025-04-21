@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Tenant_Management_System
+namespace Tenant_Management_System.Views
 {
     /// <summary>
     /// Interaction logic for LoginPage.xaml
@@ -21,7 +21,7 @@ namespace Tenant_Management_System
     public partial class LoginPage : Window
     {
         public LoginPage()
-        {   
+        {
             InitializeComponent();
             statusLbl.Text = " ";
         }
@@ -48,7 +48,8 @@ namespace Tenant_Management_System
                 statusLbl.Foreground = Brushes.Red;
             }
 
-            else{
+            else
+            {
                 var user = db.Users.Find(u => u.Email == enteredEmail && u.Password == enteredPassword).FirstOrDefault();
 
                 if (user != null)
@@ -67,7 +68,7 @@ namespace Tenant_Management_System
         }
         private void registerLinkTxt_Click(object sender, RoutedEventArgs e)
         {
-            
+
             RegisterPage registerPage = new RegisterPage();
             registerPage.Show();
             this.Close();

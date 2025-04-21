@@ -12,8 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Tenant_Management_System.Views;
 
-namespace Tenant_Management_System
+namespace Tenant_Management_System.Views
 {
     /// <summary>
     /// Interaction logic for RegisterPage.xaml

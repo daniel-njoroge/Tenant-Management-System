@@ -1,0 +1,70 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Drop shadow effect -->
+    <DropShadowEffect x:Key="DropShadow" BlurRadius="10" ShadowDepth="4" Direction="270" Color="#888888" Opacity="0.4"/>
+
+    <!-- Sidebar button style -->
+    <Style x:Key="SidebarButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="#FF984040"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="10,5,10,5"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#FFBA5F5F"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Text box style -->
+    <Style x:Key="InputTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="#FFE5E5E5"/>
+        <Setter Property="BorderBrush" Value="#FF984040"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <!-- Label style -->
+    <Style x:Key="LabelStyle" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="#333333"/>
+        <Setter Property="Margin" Value="0,0,0,5"/>
+    </Style>
+
+    <!-- Password box style -->
+    <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
+        <Setter Property="Background" Value="#FFE8E8E8"/>
+        <Setter Property="BorderBrush" Value="#FF984040"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <!-- Hyperlink style -->
+    <Style x:Key="HyperlinkStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#0078d4"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+</ResourceDictionary>

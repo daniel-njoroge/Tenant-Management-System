@@ -1,0 +1,62 @@
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+
+namespace Tenant_Management_System.Views
+{
+    public partial class MainApp : Window
+    {
+        private User LoggedInUser;
+        private ApartmentsView apartmentsView;
+        private TenantsView tenantsView;
+        private RoomsView roomsView;
+        private SettingsView settingsView;
+
+        public MainApp(User user)
+        {
+            InitializeComponent();
+            LoggedInUser = user;
+
+            // Initialize welcome label
+            var lastname = LoggedInUser.Fullname.Split(' ')[1];
+            welcomeLbl.Text += lastname;
+            welcomeLbl.Foreground = Brushes.Green;
+
+            // Initialize UserControls
+            apartmentsView = new ApartmentsView();
+            tenantsView = new TenantsView();
+            roomsView = new RoomsView();
+            settingsView = new SettingsView(LoggedInUser);
+
+            // Set default view
+            MainContent.Content = apartmentsView;
+        }
+
+        private void apartmentsTabBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainContent.Content = apartmentsView;
+        }
+
+        private void tenantsTabBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainContent.Content = tenantsView;
+        }
+
+        private void roomsTabBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainContent.Content = roomsView;
+        }
+
+        private void settingsTabBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainContent.Content = settingsView;
+        }
+
+        private void logoutLinkTxt_Click(object sender, RoutedEventArgs e)
+        {
+            LoginPage loginPage = new LoginPage();
+            this.Close();
+            loginPage.Show();
+        }
+    }
+}

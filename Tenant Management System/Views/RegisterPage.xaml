@@ -1,4 +1,4 @@
-﻿<Window x:Class="Tenant_Management_System.RegisterPage"
+﻿<Window x:Class="Tenant_Management_System.Views.RegisterPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -107,7 +107,7 @@
                 <Button x:Name="registerBtn"
                     Content="Register"
                     Style="{StaticResource registerButtonStyle}"
-                    Click="registerBtn_Click" Height="41"/> 
+                    Click="registerBtn_Click" Height="41"/>
 
                 <!-- Link to login page -->
                 <TextBlock x:Name="loginLinkTxt" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15,5,0,0" Foreground="#0078d4" FontWeight="SemiBold" FontSize="14" Cursor="Hand" MouseDown="loginLinkTxt_Click"><Run Text="Back to Login"/></TextBlock>
