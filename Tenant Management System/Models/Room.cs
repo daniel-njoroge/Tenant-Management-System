@@ -8,11 +8,12 @@ namespace Tenant_Management_System.Models
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public string Id { get; set; }
-        public string RoomNumber { get; set; } // e.g., R/3/4
-        public string ApartmentNo { get; set; } // e.g., A/1/3
-        public string RoomType { get; set; } // e.g., Single
-        public decimal PricePerRoom { get; set; } // e.g., 1000
-        public string RoomStatus { get; set; } // e.g., Vacant
-        public bool RoomPaid { get; set; } // e.g., false
+        public string RoomNumber { get; set; }
+        public string ApartmentNo { get; set; }
+        public string RoomType { get; set; }
+        public decimal PricePerRoom { get; set; }
+        public string RoomStatus { get; set; }
+        public bool RoomPaid { get; set; }
+        public string TenantId { get; set; }
     }
 }

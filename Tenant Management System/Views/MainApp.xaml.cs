@@ -25,7 +25,7 @@ namespace Tenant_Management_System.Views
 
             // Initialize UserControls
             apartmentsView = new ApartmentsView(LoggedInUser);
-            tenantsView = new TenantsView();
+            tenantsView = new TenantsView(LoggedInUser);
             roomsView = new RoomsView(LoggedInUser);
             settingsView = new SettingsView(LoggedInUser);
 
