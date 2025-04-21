@@ -167,14 +167,14 @@ namespace Tenant_Management_System.Views
                 LoadTenants();
                 addNewTenantPnl.Visibility = Visibility.Collapsed;
                 tenantsOverview.Visibility = Visibility.Visible;
+
+                PopulateApartmentComboBox();
             }
             catch (Exception ex)
             {
                 addTenantStatusLbl.Text = $"Error adding tenant: {ex.Message}";
                 addTenantStatusLbl.Foreground = Brushes.Red;
             }
-
-            PopulateApartmentComboBox();
         }
 
         private void assignRoomBtn_Click(object sender, RoutedEventArgs e)
@@ -253,12 +253,138 @@ namespace Tenant_Management_System.Views
                 selectedTenantApartmentNoCbx.SelectedIndex = -1;
                 selectedTenantRoomNoCbx.SelectedIndex = -1;
 
-                LoadTenants(); // Refresh DataGrid to show updated RoomNumber
+                LoadTenants();
+                PopulateApartmentComboBox(); // Refresh available rooms
             }
             catch (Exception ex)
             {
                 statusLbl.Text = $"Error assigning room: {ex.Message}";
                 statusLbl.Foreground = Brushes.Red;
+                MessageBox.Show($"Assignment error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void unassignRoomBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(selectedTenantNoTbx.Text))
+                {
+                    statusLbl.Text = "Please select a tenant.";
+                    statusLbl.Foreground = Brushes.Red;
+                    return;
+                }
+
+                var tenantNo = selectedTenantNoTbx.Text;
+                var tenantFilter = Builders<Tenant>.Filter.And(
+                    Builders<Tenant>.Filter.Eq(t => t.TenantNo, tenantNo),
+                    Builders<Tenant>.Filter.Eq(t => t.UserId, LoggedInUser.Id));
+                var tenant = _db.Tenants.Find(tenantFilter).FirstOrDefault();
+                if (tenant == null)
+                {
+                    statusLbl.Text = "Invalid tenant selected.";
+                    statusLbl.Foreground = Brushes.Red;
+                    return;
+                }
+
+                var roomFilter = Builders<Room>.Filter.Eq(r => r.TenantId, tenant.Id);
+                var room = _db.Rooms.Find(roomFilter).FirstOrDefault();
+                if (room == null)
+                {
+                    statusLbl.Text = "Tenant is not assigned to any room.";
+                    statusLbl.Foreground = Brushes.Red;
+                    return;
+                }
+
+                var result = MessageBox.Show(
+                    $"Are you sure you want to unassign {tenant.Fullname} from room {room.RoomNumber}?",
+                    "Confirm Unassignment",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+                if (result != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+
+                var update = Builders<Room>.Update
+                    .Set(r => r.RoomStatus, "Vacant")
+                    .Set(r => r.TenantId, null);
+                _db.Rooms.UpdateOne(r => r.Id == room.Id, update);
+
+                statusLbl.Text = "Room unassigned successfully!";
+                statusLbl.Foreground = Brushes.Green;
+
+                selectedTenantNoTbx.Text = "";
+                LoadTenants();
+                PopulateApartmentComboBox();
+            }
+            catch (Exception ex)
+            {
+                statusLbl.Text = $"Error unassigning room: {ex.Message}";
+                statusLbl.Foreground = Brushes.Red;
+                MessageBox.Show($"Unassignment error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void deleteTenantBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(selectedTenantNoTbx.Text))
+                {
+                    statusLbl.Text = "Please select a tenant.";
+                    statusLbl.Foreground = Brushes.Red;
+                    return;
+                }
+
+                var tenantNo = selectedTenantNoTbx.Text;
+                var tenantFilter = Builders<Tenant>.Filter.And(
+                    Builders<Tenant>.Filter.Eq(t => t.TenantNo, tenantNo),
+                    Builders<Tenant>.Filter.Eq(t => t.UserId, LoggedInUser.Id));
+                var tenant = _db.Tenants.Find(tenantFilter).FirstOrDefault();
+                if (tenant == null)
+                {
+                    statusLbl.Text = "Invalid tenant selected.";
+                    statusLbl.Foreground = Brushes.Red;
+                    return;
+                }
+
+                var result = MessageBox.Show(
+                    $"Are you sure you want to delete tenant {tenant.Fullname} ({tenant.TenantNo})? This action cannot be undone.",
+                    "Confirm Deletion",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+                if (result != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+
+                // Unassign tenant from room (if assigned)
+                var roomFilter = Builders<Room>.Filter.Eq(r => r.TenantId, tenant.Id);
+                var room = _db.Rooms.Find(roomFilter).FirstOrDefault();
+                if (room != null)
+                {
+                    var update = Builders<Room>.Update
+                        .Set(r => r.RoomStatus, "Vacant")
+                        .Set(r => r.TenantId, null);
+                    _db.Rooms.UpdateOne(r => r.Id == room.Id, update);
+                }
+
+                // Delete tenant
+                _db.Tenants.DeleteOne(t => t.Id == tenant.Id);
+
+                statusLbl.Text = "Tenant deleted successfully!";
+                statusLbl.Foreground = Brushes.Green;
+
+                selectedTenantNoTbx.Text = "";
+                LoadTenants();
+                PopulateApartmentComboBox();
+            }
+            catch (Exception ex)
+            {
+                statusLbl.Text = $"Error deleting tenant: {ex.Message}";
+                statusLbl.Foreground = Brushes.Red;
+                MessageBox.Show($"Deletion error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -273,6 +399,8 @@ namespace Tenant_Management_System.Views
             {
                 selectedTenantNoTbx.Text = "";
             }
+
+            PopulateApartmentComboBox();
         }
 
         private void selectedTenantApartmentNoCbx_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -294,6 +422,12 @@ namespace Tenant_Management_System.Views
             addNewTenantPnl.Visibility = Visibility.Collapsed;
             tenantsOverview.Visibility = Visibility.Visible;
             addTenantStatusLbl.Text = "";
+        }
+
+        private void refreshBtn_Click(object sender, RoutedEventArgs e)
+        {
+            LoadTenants();
+            PopulateApartmentComboBox();
         }
     }
 }

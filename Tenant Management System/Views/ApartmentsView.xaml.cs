@@ -94,9 +94,20 @@ namespace Tenant_Management_System.Views
         {
             try
             {
+
                 if (apartmentsDgr.SelectedItem is Apartment selectedApartment)
                 {
-                    
+
+                    var result = MessageBox.Show(
+                    $"Are you sure you want to delete This apartment? This action cannot be undone.",
+                    "Confirm Deletion",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+                    if (result != MessageBoxResult.Yes)
+                    {
+                        return;
+                    }
+
                     var apartmentFilter = Builders<Apartment>.Filter.Eq(a => a.Id, selectedApartment.Id);
                     _db.Apartments.DeleteOne(apartmentFilter);
 
