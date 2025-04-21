@@ -83,7 +83,8 @@ namespace Tenant_Management_System.Views
         private void deleteAccountBtn_Click(object sender, RoutedEventArgs e)
         {
             try
-            {                
+            {
+                
                 var result = MessageBox.Show(
                     "Are you sure you want to delete your account? This action cannot be undone.",
                     "Confirm Account Deletion",
@@ -95,20 +96,23 @@ namespace Tenant_Management_System.Views
                     return;
                 }
 
-                
+            
                 var apartmentFilter = Builders<Apartment>.Filter.Eq(a => a.UserId, LoggedInUser.Id);
                 var apartments = _db.Apartments.Find(apartmentFilter).ToList();
                 _db.Apartments.DeleteMany(apartmentFilter);
 
-                
+              
                 var roomFilter = Builders<Room>.Filter.In(r => r.ApartmentNo, apartments.Select(a => a.ApartmentNo));
                 _db.Rooms.DeleteMany(roomFilter);
+
+                
+                var tenantFilter = Builders<Tenant>.Filter.Eq(t => t.UserId, LoggedInUser.Id);
+                _db.Tenants.DeleteMany(tenantFilter);
 
                 
                 var userFilter = Builders<User>.Filter.Eq(u => u.Id, LoggedInUser.Id);
                 _db.Users.DeleteOne(userFilter);
 
-                
                 statusLbl.Text = "Account and associated data deleted successfully!";
                 statusLbl.Foreground = Brushes.Green;
 
