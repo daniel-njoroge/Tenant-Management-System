@@ -25,21 +25,35 @@
                     <Button x:Name="addNewApartmentBtn" Content="Add New Apartment" Height="30" Width="150"
                             Style="{StaticResource SidebarButtonStyle}" Click="addNewApartmentBtn_Click" DockPanel.Dock="Right"/>
                 </DockPanel>
-                <DataGrid x:Name="apartmentsDgr" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="True" Margin="0,15,0,0" DockPanel.Dock="Top"/>
+                <DataGrid x:Name="apartmentsDgr" AutoGenerateColumns="False" Margin="0,15,0,0" DockPanel.Dock="Top"
+                          SelectionChanged="apartmentsDgr_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Apartment No" Binding="{Binding ApartmentNo}" Width="100"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding ApartmentName}" Width="100"/>
+                        <DataGridTextColumn Header="Address" Binding="{Binding Address}" Width="108"/>
+                        <DataGridTextColumn Header="Room Type" Binding="{Binding RoomsType}" Width="100"/>
+                        <DataGridTextColumn Header="No of Rooms" Binding="{Binding NoOfRooms}" Width="100"/>
+                        <DataGridTextColumn Header="Price per Room" Binding="{Binding PricePerRoom}" Width="100"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </DockPanel>
             <!-- Right side: apartments details -->
             <StackPanel Grid.Column="1" Margin="10,55,0,0">
                 <TextBlock Text="Apartment Details" FontSize="16" FontWeight="Bold" Foreground="#FF984040" Margin="0,0,0,15" HorizontalAlignment="Center"/>
                 <TextBlock Text="Apartment No:" Style="{StaticResource LabelStyle}"/>
-                <TextBox x:Name="selectedApartmentNoTbx" Style="{StaticResource InputTextBoxStyle}" Width="195" HorizontalAlignment="Left"/>
+                <TextBox x:Name="selectedApartmentNoTbx" Style="{StaticResource InputTextBoxStyle}" Width="195" HorizontalAlignment="Left" IsEnabled="False"/>
                 <TextBlock Text="Apartment Name:" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
                 <TextBox x:Name="selectedApartmentNameTbx" Style="{StaticResource InputTextBoxStyle}" Width="195" HorizontalAlignment="Left"/>
-                <TextBlock Text="Address:" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
-                <TextBox x:Name="selectedApartmentAddressTbx" Style="{StaticResource InputTextBoxStyle}" Width="195" HorizontalAlignment="Left"/>
-                <TextBlock Text="No of Rooms:" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
-                <TextBox x:Name="selectedApartmentNoOfRoomsTbx" Style="{StaticResource InputTextBoxStyle}" Width="195" HorizontalAlignment="Left"/>
-                <Button x:Name="selectedApartmentDeleteBtn" Content="Delete" Height="30" Width="70" Margin="0,20,0,0"
-                        Style="{StaticResource SidebarButtonStyle}" Background="#FF797474" HorizontalAlignment="Left"/>
+                <TextBlock Text="Price per Room:" Style="{StaticResource LabelStyle}" Margin="0,10,0,5"/>
+                <TextBox x:Name="selectedApartmentPricePerRoomTbx" Style="{StaticResource InputTextBoxStyle}" Width="195" HorizontalAlignment="Left"/>
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                    <Button x:Name="selectedApartmentEditBtn" Content="Edit" Height="30" Width="70"
+                            Style="{StaticResource SidebarButtonStyle}" Background="Gray" HorizontalAlignment="Left" Margin="0,0,10,0"
+                            Click="selectedApartmentEditBtn_Click"/>
+                    <Button x:Name="selectedApartmentDeleteBtn" Content="Delete" Height="30" Width="70"
+                            Style="{StaticResource SidebarButtonStyle}" Background="#FF984040" HorizontalAlignment="Left"
+                            Click="selectedApartmentDeleteBtn_Click"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
         <!-- Apartments Panel add new apartment pnl -->
@@ -61,13 +75,20 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Apartment No:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
-                    <TextBox x:Name="addApartmentNoTbx" Style="{StaticResource InputTextBoxStyle}" Grid.Row="0" Grid.Column="1" Margin="70,0,0,10"/>
+                    <TextBox x:Name="addApartmentNoTbx" Style="{StaticResource InputTextBoxStyle}" Grid.Row="0" Grid.Column="1" Margin="70,0,0,10" IsEnabled="False"/>
                     <TextBlock Text="Apartment Name:" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
                     <TextBox x:Name="addApartmentNameTbx" Style="{StaticResource InputTextBoxStyle}" Grid.Row="1" Grid.Column="1" Margin="70,0,0,10"/>
                     <TextBlock Text="Address:" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
                     <TextBox x:Name="addApartmentAddressTbx" Style="{StaticResource InputTextBoxStyle}" Grid.Row="2" Grid.Column="1" Margin="70,0,0,10"/>
                     <TextBlock Text="Rooms Type:" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="addApartmentRoomsTypeTbx" Grid.Row="3" Grid.Column="1" Margin="70,0,0,10" Height="30"/>
+                    <ComboBox x:Name="addApartmentRoomsTypeTbx" Grid.Row="3" Grid.Column="1" Margin="70,0,0,10" Height="30">
+                        <ComboBoxItem Content="Single Room" />
+                        <ComboBoxItem Content="Bedsitter" />
+                        <ComboBoxItem Content="One Bedroom" />
+                        <ComboBoxItem Content="Two BedRoom" />
+                        <ComboBoxItem Content="Three Bedroom" />
+                        <ComboBoxItem Content="Four Bedroom" />
+                    </ComboBox>
                     <TextBlock Text="No of Rooms:" Style="{StaticResource LabelStyle}" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
                     <TextBox x:Name="addApartmentRoomsNoTbx" Style="{StaticResource InputTextBoxStyle}" Grid.Row="4" Grid.Column="1" Margin="70,0,0,10"/>
                     <TextBlock Text="Price per Room:" Style="{StaticResource LabelStyle}" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center"/>

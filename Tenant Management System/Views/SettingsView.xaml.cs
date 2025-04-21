@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Tenant_Management_System.Models;
 
 namespace Tenant_Management_System.Views
 {

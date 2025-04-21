@@ -1,27 +1,18 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-public class Apartment
+namespace Tenant_Management_System.Models
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
+    public class Apartment
+    {
     public string Id { get; set; }
-
-    [BsonElement("Apartment Number")]
-    public string ApartmentNo { get; set; }
-
-    [BsonElement("Apartment Name")]
+    public string ApartmentNo { get; set; }    
     public string ApartmentName { get; set; }
-
-    [BsonElement("Adress")]
     public string Address { get; set; }
-
-    [BsonElement("Rooms Type")]
     public string RoomsType { get; set; }
+    public int NoOfRooms { get; set; }
+    public decimal PricePerRoom { get; set; }
+    public string UserId { get; set; }
+    }
 
-    [BsonElement("Number of Rooms")]
-    public string NoOfRooms { get; set; }
-
-    [BsonElement("Room Price")]
-    public string RoomPrice { get; set; }
 }

@@ -1,18 +1,16 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-public class User
+namespace Tenant_Management_System.Models
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; }
-
-    [BsonElement("Full Name")]
-    public string Fullname { get; set; }
-
-    [BsonElement("Email")]
-    public string Email { get; set; }
-
-    [BsonElement("Password")]
-    public string Password { get; set; }
+    public class User
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.String)]
+        public string Id { get; set; }
+        public int UserID { get; set; }
+        public string Fullname { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
 }

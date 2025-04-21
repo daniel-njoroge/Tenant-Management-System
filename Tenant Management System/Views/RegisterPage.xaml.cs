@@ -1,97 +1,107 @@
 ﻿using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Tenant_Management_System.Views;
+using Tenant_Management_System.Models;
 
 namespace Tenant_Management_System.Views
 {
-    /// <summary>
-    /// Interaction logic for RegisterPage.xaml
-    /// </summary>
     public partial class RegisterPage : Window
     {
+        private readonly MongoDBConnection _db;
+
         public RegisterPage()
         {
             InitializeComponent();
+            _db = new MongoDBConnection();
             statusLbl.Text = " ";
         }
 
         private void registerBtn_Click(object sender, RoutedEventArgs e)
         {
-            var db = new MongoDBConnection();
-            string fullname = fullNameTbx.Text;
-            string email = emailTbx.Text;
-            string password = passwordTbx.Password;
-            string confirmPassword = confirmPasswordTbx.Password;
+            try
+            {
+                string fullname = fullNameTbx.Text;
+                string email = emailTbx.Text;
+                string password = passwordTbx.Password;
+                string confirmPassword = confirmPasswordTbx.Password;
 
-
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(fullname))
-            {
-                statusLbl.Text = "Email and password cannot be empty.";
-                return;
-            }
-            if (passwordTbx.Password.Length < 6)
-            {
-                statusLbl.Text = "Password must be at least 6 characters long.";
-                return;
-            }
-            if (passwordTbx.Password != confirmPasswordTbx.Password)
-            {
-                statusLbl.Text = "Password and confirm password must match.";
-                return;
-            }
-            if (!(emailTbx.Text.Contains("@") && emailTbx.Text.Contains(".")))
-            {
-                statusLbl.Text = "Email is not valid";
-            }
-            else
-            {
-                var existingEmail = db.Users.Find(u => u.Email == email).FirstOrDefault();
-                if (existingEmail != null)
+                
+                if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(fullname))
                 {
-                    statusLbl.Text = "Email Already Registered!";
+                    statusLbl.Text = "Email, password, and full name cannot be empty.";
+                    statusLbl.Foreground = Brushes.Red;
+                    return;
+                }
+                if (password.Length < 6)
+                {
+                    statusLbl.Text = "Password must be at least 6 characters long.";
+                    statusLbl.Foreground = Brushes.Red;
+                    return;
+                }
+                if (password != confirmPassword)
+                {
+                    statusLbl.Text = "Password and confirm password must match.";
+                    statusLbl.Foreground = Brushes.Red;
+                    return;
+                }
+                if (!(email.Contains("@") && email.Contains(".")))
+                {
+                    statusLbl.Text = "Email is not valid.";
+                    statusLbl.Foreground = Brushes.Red;
                     return;
                 }
 
+                
+                var existingEmail = _db.Users.Find(u => u.Email == email).FirstOrDefault();
+                if (existingEmail != null)
+                {
+                    statusLbl.Text = "Email already registered!";
+                    statusLbl.Foreground = Brushes.Red;
+                    return;
+                }
+
+                
+                var users = _db.Users.Find(FilterDefinition<User>.Empty).ToList();
+                var nextUserID = users.Any() ? users.Max(u => u.UserID) + 1 : 1;
+
+                
                 var newUser = new User
                 {
+                    Id = Guid.NewGuid().ToString(),
+                    UserID = nextUserID,
                     Fullname = fullname,
                     Email = email,
                     Password = password
                 };
 
+                
+                _db.Users.InsertOne(newUser);
 
-                db.Users.InsertOne(newUser);
-
+                
                 statusLbl.Text = "Registration successful!";
                 statusLbl.Foreground = Brushes.Green;
 
-
-                fullname = "";
-                email = "";
-                password = "";
+                
+                fullNameTbx.Text = "";
+                emailTbx.Text = "";
+                passwordTbx.Password = "";
+                confirmPasswordTbx.Password = "";
             }
-
+            catch (Exception ex)
+            {
+                statusLbl.Text = $"Error during registration: {ex.Message}";
+                statusLbl.Foreground = Brushes.Red;
+            }
         }
 
         private void loginLinkTxt_Click(object sender, RoutedEventArgs e)
         {
             LoginPage loginPage = new LoginPage();
-
             this.Close();
             loginPage.Show();
-
         }
     }
 }

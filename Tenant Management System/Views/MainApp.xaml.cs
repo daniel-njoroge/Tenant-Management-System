@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Tenant_Management_System.Models;
 
 namespace Tenant_Management_System.Views
 {
@@ -23,7 +24,7 @@ namespace Tenant_Management_System.Views
             welcomeLbl.Foreground = Brushes.Green;
 
             // Initialize UserControls
-            apartmentsView = new ApartmentsView();
+            apartmentsView = new ApartmentsView(LoggedInUser);
             tenantsView = new TenantsView();
             roomsView = new RoomsView();
             settingsView = new SettingsView(LoggedInUser);
