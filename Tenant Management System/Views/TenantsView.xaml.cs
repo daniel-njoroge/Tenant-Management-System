@@ -417,6 +417,103 @@ namespace Tenant_Management_System.Views
             }
         }
 
+
+        private void markPaidBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(selectedTenantNoTbx.Text))
+                {
+                    statusLbl.Text = "Please select a tenant.";
+                    statusLbl.Foreground = Brushes.Red;
+                    return;
+                }
+
+                var tenantNo = selectedTenantNoTbx.Text;
+                var tenantFilter = Builders<Tenant>.Filter.And(
+                    Builders<Tenant>.Filter.Eq(t => t.TenantNo, tenantNo),
+                    Builders<Tenant>.Filter.Eq(t => t.UserId, LoggedInUser.Id));
+                var tenant = _db.Tenants.Find(tenantFilter).FirstOrDefault();
+                if (tenant == null)
+                {
+                    statusLbl.Text = "Invalid tenant selected.";
+                    statusLbl.Foreground = Brushes.Red;
+                    return;
+                }
+
+                var roomFilter = Builders<Room>.Filter.Eq(r => r.TenantId, tenant.Id);
+                var room = _db.Rooms.Find(roomFilter).FirstOrDefault();
+                if (room == null)
+                {
+                    statusLbl.Text = "Tenant is not assigned to any room.";
+                    statusLbl.Foreground = Brushes.Red;
+                    return;
+                }
+
+                // Check if a payment exists for the current month
+                var currentMonthStart = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1);
+                var nextMonthStart = currentMonthStart.AddMonths(1);
+                var paymentFilter = Builders<Payment>.Filter.And(
+                    Builders<Payment>.Filter.Eq(p => p.RoomId, room.Id),
+                    Builders<Payment>.Filter.Eq(p => p.TenantId, tenant.Id),
+                    Builders<Payment>.Filter.Gte(p => p.PaymentDate, currentMonthStart),
+                    Builders<Payment>.Filter.Lt(p => p.PaymentDate, nextMonthStart));
+                var existingPayment = _db.Payments.Find(paymentFilter).FirstOrDefault();
+                if (existingPayment != null || room.RoomPaid)
+                {
+                    statusLbl.Text = $"This room is already paid for {currentMonthStart:MMMM yyyy}.";
+                    statusLbl.Foreground = Brushes.Red;
+                    return;
+                }
+
+                var result = MessageBox.Show(
+                    $"Mark {tenant.Fullname} as paid for room {room.RoomNumber} (Amount: {room.PricePerRoom})?",
+                    "Confirm Payment",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+                if (result != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+
+                // Update room to paid and set LastPaidDate
+                var roomUpdate = Builders<Room>.Update
+                    .Set(r => r.RoomPaid, true)
+                    .Set(r => r.LastPaidDate, DateTime.UtcNow);
+                var updateResult = _db.Rooms.UpdateOne(r => r.Id == room.Id, roomUpdate);
+                if (updateResult.ModifiedCount == 0)
+                {
+                    statusLbl.Text = "Failed to update room payment status.";
+                    statusLbl.Foreground = Brushes.Red;
+                    return;
+                }
+
+                
+                var payment = new Payment
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    TenantId = tenant.Id,
+                    RoomId = room.Id,
+                    ApartmentNo = room.ApartmentNo,
+                    Amount = room.PricePerRoom,
+                    PaymentDate = DateTime.UtcNow,
+                    UserId = LoggedInUser.Id
+                };
+                _db.Payments.InsertOne(payment);
+
+                statusLbl.Text = "Tenant marked as paid successfully!";
+                statusLbl.Foreground = Brushes.Green;
+
+                LoadTenants();
+            }
+            catch (Exception ex)
+            {
+                statusLbl.Text = $"Error marking tenant as paid: {ex.Message}";
+                statusLbl.Foreground = Brushes.Red;
+                MessageBox.Show($"Payment error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private void backToTenantsLnk_Click(object sender, RoutedEventArgs e)
         {
             addNewTenantPnl.Visibility = Visibility.Collapsed;

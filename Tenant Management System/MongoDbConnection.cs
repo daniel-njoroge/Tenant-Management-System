@@ -21,4 +21,6 @@ public class MongoDBConnection
         _database.GetCollection<Room>("Rooms");
     public IMongoCollection<Tenant> Tenants =>
         _database.GetCollection<Tenant>("Tenants");
+    public IMongoCollection<Payment> Payments =>
+        _database.GetCollection<Payment>("Payments");
 }

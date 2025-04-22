@@ -11,6 +11,7 @@ namespace Tenant_Management_System.Views
         private ApartmentsView apartmentsView;
         private TenantsView tenantsView;
         private RoomsView roomsView;
+        private PaymentsView paymentsView;
         private SettingsView settingsView;
 
         public MainApp(User user)
@@ -27,6 +28,7 @@ namespace Tenant_Management_System.Views
             apartmentsView = new ApartmentsView(LoggedInUser);
             tenantsView = new TenantsView(LoggedInUser);
             roomsView = new RoomsView(LoggedInUser);
+            paymentsView = new PaymentsView(LoggedInUser);
             settingsView = new SettingsView(LoggedInUser);
 
             // Set default view
@@ -46,6 +48,11 @@ namespace Tenant_Management_System.Views
         private void roomsTabBtn_Click(object sender, RoutedEventArgs e)
         {
             MainContent.Content = roomsView;
+        }
+
+        private void paymentsTabBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainContent.Content = paymentsView;
         }
 
         private void settingsTabBtn_Click(object sender, RoutedEventArgs e)
