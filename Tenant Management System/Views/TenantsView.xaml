@@ -55,6 +55,8 @@
                         Style="{StaticResource SidebarButtonStyle}" HorizontalAlignment="Left" Click="assignRoomBtn_Click"/>
                 <Button x:Name="unassignRoomBtn" Content="Unassign Room" Height="30" Width="120" Margin="0,10,0,10"
                         Style="{StaticResource SidebarButtonStyle}" HorizontalAlignment="Left" Click="unassignRoomBtn_Click"/>
+                <Button x:Name="markPaidBtn" Content="Mark as Paid" Height="30" Width="120" Margin="0,10,0,10"
+                         Style="{StaticResource SidebarButtonStyle}" HorizontalAlignment="Left" Click="markPaidBtn_Click"/>
                 <Button x:Name="deleteTenantBtn" Content="Delete Tenant" Height="30" Width="120" Margin="0,10,0,10"
                         Style="{StaticResource SidebarButtonStyle}" HorizontalAlignment="Left" Click="deleteTenantBtn_Click"/>
                 <TextBlock x:Name="statusLbl" Margin="0,10,0,0" Foreground="Red" TextWrapping="Wrap"/>

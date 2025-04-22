@@ -29,6 +29,7 @@
                     <Button x:Name="apartmentsTabBtn" Content="Apartments" Style="{StaticResource SidebarButtonStyle}" Click="apartmentsTabBtn_Click" Margin="10,5,10,30"/>
                     <Button x:Name="tenantsTabBtn" Content="Tenants" Style="{StaticResource SidebarButtonStyle}" Click="tenantsTabBtn_Click" Margin="10,5,10,30"/>
                     <Button x:Name="roomsTabBtn" Content="Rooms" Style="{StaticResource SidebarButtonStyle}" Click="roomsTabBtn_Click" Margin="10,5,10,30"/>
+                    <Button x:Name="paymentsTabBtn" Content="Payments" Style="{StaticResource SidebarButtonStyle}" Click="paymentsTabBtn_Click" Margin="10,5,10,30"/>
                     <Button x:Name="settingsTabBtn" Content="Settings" Style="{StaticResource SidebarButtonStyle}" Click="settingsTabBtn_Click" Margin="10,5,10,5"/>
                 </StackPanel>
                 <TextBlock x:Name="logoutLinkTxt" Text="Logout" Style="{StaticResource HyperlinkStyle}" 

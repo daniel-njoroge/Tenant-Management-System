@@ -155,6 +155,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Apartment.cs" />
+    <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\Tenant.cs" />
     <Compile Include="Views\ApartmentsView.xaml.cs">
@@ -171,6 +172,9 @@
     </Compile>
     <Compile Include="Views\MainApp.xaml.cs">
       <DependentUpon>MainApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PaymentsView.xaml.cs">
+      <DependentUpon>PaymentsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
@@ -224,6 +228,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainApp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PaymentsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

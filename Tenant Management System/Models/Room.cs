@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace Tenant_Management_System.Models
 {
@@ -15,5 +16,7 @@ namespace Tenant_Management_System.Models
         public string RoomStatus { get; set; }
         public bool RoomPaid { get; set; }
         public string TenantId { get; set; }
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        public DateTime? LastPaidDate { get; set; }
     }
 }
