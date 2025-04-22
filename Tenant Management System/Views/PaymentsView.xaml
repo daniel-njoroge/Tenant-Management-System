@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="Tenant_Management_System.Views.PaymentsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="paymentsPnl" Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Payments" FontSize="24" FontWeight="Bold" 
+                       Foreground="#FF984040" VerticalAlignment="Center"/>
+            <Button Grid.Column="1" x:Name="refreshBtn" Content="Refresh" 
+                    Width="120" Height="30" Margin="10,0,0,0" 
+                    Style="{StaticResource SidebarButtonStyle}" 
+                    Click="refreshBtn_Click"/>
+        </Grid>
+
+        <!-- Summary -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,10">
+            <TextBlock Text="Total Paid: " Style="{StaticResource LabelStyle}"/>
+            <TextBlock x:Name="totalPaidLbl" Text="0.00" FontWeight="Bold" Margin="5,0,20,0"/>
+            <TextBlock Text="Pending Payments: " Style="{StaticResource LabelStyle}"/>
+            <TextBlock x:Name="pendingPaymentsLbl" Text="0.00" FontWeight="Bold" Margin="5,0,20,0"/>
+            <TextBlock Text="This Month: " Style="{StaticResource LabelStyle}"/>
+            <TextBlock x:Name="thisMonthLbl" Text="0.00" FontWeight="Bold" Margin="5,0,0,0"/>
+        </StackPanel>
+
+        <!-- DataGrid -->
+        <DataGrid Grid.Row="2" x:Name="paymentsDgr" AutoGenerateColumns="False" 
+                  Margin="0,10,0,0" CanUserAddRows="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Tenant" Binding="{Binding TenantName}" Width="150"/>
+                <DataGridTextColumn Header="Room No" Binding="{Binding RoomNumber}" Width="100"/>
+                <DataGridTextColumn Header="Apartment No" Binding="{Binding ApartmentNo}" Width="100"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="100"/>
+                <DataGridTextColumn Header="Payment Date" Binding="{Binding PaymentDate, StringFormat=yyyy-MM-dd}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
