@@ -67,14 +67,15 @@ namespace Tenant_Management_System.Views
                 var users = _db.Users.Find(FilterDefinition<User>.Empty).ToList();
                 var nextUserID = users.Any() ? users.Max(u => u.UserID) + 1 : 1;
 
-                
+                var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+
                 var newUser = new User
                 {
                     Id = Guid.NewGuid().ToString(),
                     UserID = nextUserID,
                     Fullname = fullname,
                     Email = email,
-                    Password = password
+                    Password = hashedPassword
                 };
 
                 

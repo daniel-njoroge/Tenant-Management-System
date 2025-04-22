@@ -10,7 +10,7 @@ public class MongoDBConnection
     {
         string connectionString = ConfigurationManager.AppSettings["MongoConnectionString"];
         var client = new MongoClient(connectionString);
-        _database = client.GetDatabase("TMS");
+        _database = client.GetDatabase("TenantsGW");
     }
 
     public IMongoCollection<User> Users =>

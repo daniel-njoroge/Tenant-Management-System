@@ -51,9 +51,9 @@ namespace Tenant_Management_System.Views
 
             else
             {
-                var user = db.Users.Find(u => u.Email == enteredEmail && u.Password == enteredPassword).FirstOrDefault();
+                var user = db.Users.Find(u => u.Email == enteredEmail).FirstOrDefault();
 
-                if (user != null)
+                if (user != null && BCrypt.Net.BCrypt.Verify(enteredPassword, user.Password))
                 {
                     statusLbl.Text = "Login successful!";
                     statusLbl.Foreground = Brushes.Green;
