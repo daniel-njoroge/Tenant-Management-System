@@ -20,7 +20,9 @@ namespace Tenant_Management_System.Views
             LoggedInUser = user;
 
             // Initialize welcome label
-            var lastname = LoggedInUser.Fullname.Split(' ')[1];
+            var nameParts = LoggedInUser.Fullname.Split(' ');
+            var lastname = nameParts.Length > 1 ? nameParts[1] : LoggedInUser.Fullname;
+
             welcomeLbl.Text += lastname;
             welcomeLbl.Foreground = Brushes.Green;
 
